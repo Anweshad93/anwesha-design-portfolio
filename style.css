@@ -55,3 +55,6 @@ html{overflow-x:clip}body{min-width:280px}.wrap{width:calc(100% - 64px);max-widt
 
 /* Full images in fitted frames, aligned along their top edges. */
 .project-grid{align-items:start}.thumb.album{aspect-ratio:1 / 1}.thumb.environment{aspect-ratio:984 / 558}.project-cover,.studio-thumb{width:100%;height:100%;object-fit:contain;padding:0}
+
+/* Publish-ready footer link. */
+.socials a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 16px;border:1px solid #454547;border-radius:999px;color:#aaa;font-size:11px;letter-spacing:.04em;transition:border-color .2s,color .2s}.socials a:hover{border-color:var(--red);color:#fff}
