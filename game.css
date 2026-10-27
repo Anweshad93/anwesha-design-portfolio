@@ -5,3 +5,5 @@
 .proposal-nav nav a{position:relative;padding-bottom:5px}.proposal-nav nav a::after{content:"";position:absolute;left:0;bottom:0;width:24px;height:2px;background:#b84456;transform:scaleX(0);transform-origin:left;transition:transform .18s ease}.proposal-nav nav a.section-active{color:#f0efeb}.proposal-nav nav a.section-active::after{transform:scaleX(1)}.proposal-nav{max-height:calc(100vh - 60px);overflow-y:auto}
 @media(max-width:650px){.proposal-nav{max-height:none;overflow:visible}}
 @media(prefers-reduced-motion:reduce){.proposal-nav nav a::after{transition:none}}
+.proposal-nav{scrollbar-width:thin;scrollbar-color:#4c3a40 #111112}
+@media(min-width:651px){.proposal-nav nav{gap:10px}.proposal-nav>p{margin-bottom:0}}
