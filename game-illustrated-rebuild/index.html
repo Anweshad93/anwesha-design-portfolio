@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8f697f" />
+    <title>The Unfaithful Reflection</title>
+    <link rel="stylesheet" href="./style.css?v=opening-sound-2" />
+  </head>
+  <body>
+    <main id="game" aria-label="The Unfaithful Reflection illustrated game prototype">
+      <div id="scene" aria-hidden="true"></div>
+      <section id="intro" class="opening" aria-labelledby="game-title">
+        <div class="opening-art" aria-hidden="true"></div>
+        <div class="opening-shade" aria-hidden="true"></div>
+        <div class="opening-top"><span>An original puzzle journey</span><span class="opening-chapter">The Silent Courtyard · I</span></div>
+        <div class="opening-audio">
+          <details class="music-credits"><summary>Music credits</summary><p>“Fluidscape” and “Dreams Become Real” by Kevin MacLeod, <a href="https://incompetech.com/" target="_blank" rel="noopener noreferrer">incompetech.com</a>. <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Fluidscape is an edited excerpt; tracks fade between worlds.</p></details>
+        </div>
+        <div class="opening-content">
+          <p class="opening-kicker"><span aria-hidden="true">✧</span> A world between what is and what was</p>
+          <h1 id="game-title">The Unfaithful<br><em>Reflection</em></h1>
+          <span class="opening-rule" aria-hidden="true"></span>
+          <p class="opening-tagline">Some truths are waiting beneath the surface.</p>
+          <button id="begin" class="opening-action" type="button"><span>Start journey</span><span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="opening-bottom">Observe <span>✦</span> Discover <span>✦</span> Remember</p>
+      </section>
+
+      <section id="story" class="opening story-screen is-hidden" aria-labelledby="story-title">
+        <div class="opening-art" aria-hidden="true"></div>
+        <div class="story-shade" aria-hidden="true"></div>
+        <div class="story-card">
+          <p class="opening-kicker">Chapter I <span aria-hidden="true">✧</span> The Silent Courtyard</p>
+          <h2 id="story-title">The water remembers.</h2>
+          <span class="opening-rule" aria-hidden="true"></span>
+          <p>Long ago, the people of this fortress vanished without a trace. A lone traveller has come seeking answers, guided by memories that linger in the water.</p>
+          <p>Help him cross the forgotten courtyards, uncover their hidden clues, and discover what became of the people who once called this place home.</p>
+          <button id="enter-courtyard" class="opening-action" type="button"><span>Enter the courtyard</span><span aria-hidden="true">↗</span></button>
+        </div>
+      </section>
+
+      <header id="hud" class="hud is-hidden" aria-live="polite">
+        <div class="objective-card">
+          <div class="objective-meta">
+            <span id="chapter-step" class="step-label">Outer Crossing</span>
+            <span id="world-state" class="world-state">Real world</span>
+          </div>
+          <p id="objective">Drag across the water to reveal what it remembers.</p>
+          <p id="joint-status" class="joint-status" aria-live="polite">Find the path that leads to the door.</p>
+          <p id="memory-line" class="memory-line" aria-live="polite"><span>Your search</span> Discover what happened to the missing inhabitants.</p>
+        </div>
+        <div class="game-actions" aria-label="Game controls">
+          <button id="sound" class="icon-action" type="button" aria-pressed="true">Sound on</button>
+          <button id="pause" class="icon-action" type="button" aria-pressed="false">Pause</button>
+          <button id="restart" class="icon-action" type="button">Restart</button>
+          <details class="game-music-credits music-credits"><summary>Music credits</summary><p>“Fluidscape” and “Dreams Become Real” by Kevin MacLeod, <a href="https://incompetech.com/" target="_blank" rel="noopener noreferrer">incompetech.com</a>. <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Fluidscape is an edited excerpt; tracks fade between worlds.</p></details>
+        </div>
+      </header>
+
+      <div id="prompt" class="prompt is-hidden" role="status"></div>
+      <aside id="guide-speech" class="guide-speech is-hidden" aria-live="polite" aria-atomic="true">
+        <span class="guide-speech-icon" aria-hidden="true">✧</span>
+        <div><span class="guide-name">The Guide <span class="guide-spark" aria-hidden="true">✦</span></span><p id="guide-words"></p></div>
+      </aside>
+      <button id="wheel-cue" class="wheel-cue is-hidden" type="button" aria-label="Walk to and press the red button">Tap the red button <span aria-hidden="true">↓</span></button>
+
+      <nav id="travel-controls" class="travel-controls is-hidden" aria-label="Courtyard actions">
+        <button id="go-wheel" type="button">Walk to button</button>
+        <button id="turn-wheel" type="button">Press red button</button>
+        <button id="go-dais" type="button">Walk to platform</button>
+        <button id="switch-world" type="button">Switch world</button>
+        <button id="cross-bridge" type="button">Cross bridge</button>
+        <button id="return-bridge" type="button">Walk back</button>
+        <button id="go-door" type="button">Reach doorway</button>
+      </nav>
+
+      <section id="pause-panel" class="panel pause-panel is-hidden" aria-labelledby="pause-title">
+        <p class="eyebrow">The memory is waiting</p>
+        <h2 id="pause-title">Game paused</h2>
+        <button id="resume" class="primary-action" type="button">Continue</button>
+      </section>
+
+      <section id="ending" class="panel ending-panel is-hidden" aria-labelledby="ending-title">
+        <p class="eyebrow">Memory restored</p>
+        <h2 id="ending-title">The doorway remembers you.</h2>
+        <p class="story-copy">The fragment warms in the traveller’s hand. Beyond the light, another courtyard is beginning to wake.</p>
+        <button id="play-again" class="primary-action" type="button">Play again</button>
+      </section>
+
+      <div id="loading" role="status" aria-live="polite">
+        <span class="loading-mark" aria-hidden="true"></span>
+        <p>The courtyard remembers…</p>
+      </div>
+      <div class="grain" aria-hidden="true"></div>
+    </main>
+    <script src="./opening-audio.js?v=no-opening-control-4"></script>
+    <script type="module" src="./scene3d.js?v=reflection-contrast-5"></script>
+  </body>
+</html>

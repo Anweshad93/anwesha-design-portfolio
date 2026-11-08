@@ -63,3 +63,6 @@ html{overflow-x:clip}body{min-width:280px}.wrap{width:calc(100% - 64px);max-widt
 
 /* Publish-ready footer link. */
 .socials a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 16px;border:1px solid #454547;border-radius:999px;color:#aaa;font-size:11px;letter-spacing:.04em;transition:border-color .2s,color .2s}.socials a:hover{border-color:var(--red);color:#fff}
+
+/* Direct access to the interactive draft, separate from the proposal card. */
+.project-game-card .project{display:block}.project-play{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:14px;padding:0 15px;border:1px solid #a25462;border-radius:999px;color:#f3d9de;font-size:12px;letter-spacing:.02em;transition:background .2s,border-color .2s}.project-play:hover,.project-play:focus-visible{background:#47252d;border-color:#e1a0ac}.project-play span{font-size:15px}
