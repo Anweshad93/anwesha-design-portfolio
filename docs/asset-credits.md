@@ -26,4 +26,4 @@ GLTFLoader and BufferGeometryUtils are from Three.js 0.180.0, under the bundled 
 
 ## Illustrated courtyard soundtrack
 
-Music: “Dreams Become Real” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500027), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `game-illustrated-rebuild/assets/dreams-become-real.mp3`. Playback volume is reduced and transitions fade between this track and the edited “Fluidscape” excerpt credited above. Both are credited in the game.
+Music: “Dreams Become Real” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500027), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `the-unfaithful-reflection-first-draft/assets/dreams-become-real.mp3`. Playback volume is reduced and transitions fade between this track and the edited “Fluidscape” excerpt credited above. Both are credited in the game.
