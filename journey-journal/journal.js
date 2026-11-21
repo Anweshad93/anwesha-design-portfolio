@@ -15,7 +15,7 @@ const sceneDescriptions = [
   'The moonlit garden pool with marked stepping stones, a bare tree and lanterns.',
   'The Water Chamber, with marked stepping stones, lanterns and a far doorway.',
   'The Hall of False Dawn, its red carpet, podium and reflected doorway.',
-  'A page yet to be written.'
+  'A circular sanctuary with a central pool and pale arches.'
 ];
 
 const fieldNotes = [
@@ -23,7 +23,7 @@ const fieldNotes = [
   'A quiet touch brought the garden to life.',
   'I carried a light that still burned.',
   'The water remembered a doorway.',
-  'A memory awaits.'
+  'At last, the fortress welcomes them home.'
 ];
 
 // The objects grow into a small collection as the traveller earns memories.
@@ -33,6 +33,7 @@ const keepsakes = [
   {name:'The golden globe', svg:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" class="keepsake-halo"/><circle cx="32" cy="32" r="15" class="keepsake-fill"/><ellipse cx="32" cy="32" rx="25" ry="9" transform="rotate(-25 32 32)" class="keepsake-line"/><ellipse cx="32" cy="32" rx="24" ry="9" transform="rotate(35 32 32)" class="keepsake-line"/></svg>`},
   {name:'The lantern', svg:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="33" r="25" class="keepsake-halo"/><path d="M24 19c0-10 16-10 16 0M19 20h26M21 22h22v30H21zM18 53h28M25 23v27M39 23v27" class="keepsake-line"/><path d="M32 46c-7-4-3-11 0-15 4 5 7 10 0 15Z" class="keepsake-fill"/></svg>`},
   {name:'The hidden doorway', svg:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" class="keepsake-halo"/><path d="M16 52V31a16 16 0 0 1 32 0v21M12 52h40" class="keepsake-line keepsake-arch"/><path d="M32 19v26M21 34h22" class="keepsake-light"/></svg>`},
+  {name:'The way home', svg:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" class="keepsake-halo"/><path d="M14 53V30a18 18 0 0 1 36 0v23M10 53h44" class="keepsake-line"/><circle cx="26" cy="31" r="3" class="keepsake-fill"/><circle cx="38" cy="31" r="3" class="keepsake-fill"/><path d="M26 35v10m-5 6 5-6 5 6m7-16v10m-5 6 5-6 5 6M27 38l5 3 6-3" class="keepsake-line"/><path d="m32 11 2 4 4 1-4 2-2 4-2-4-4-1 4-2z" class="keepsake-fill"/></svg>`}
 ];
 
 // A chapter reward celebrates only the object found in that chapter. The
@@ -50,7 +51,7 @@ const entries = [
   {number:'II', title:'The Moonlit Garden', subtitle:'A garden remembers', art:'The golden globe', clue:'The water showed a crescent and a star.', solution:'I matched the scattered stones to their reflections, crossed to the tree, and found the golden globe when it awakened.'},
   {number:'III', title:'The Water Chamber', subtitle:'A light still burns', art:'The little lantern', clue:'Reflected marks showed which stepping stones were safe.', solution:'I followed the marks, restored a carving of a person, lantern and doorway, and found a lantern whose flame still burned.'},
   {number:'IV', title:'The Hall of False Dawn', subtitle:'Beyond the illusion', art:'The hidden doorway', clue:'The wall was bare, but the water showed a doorway.', solution:'I placed the lantern beside the star and globe, then joined the broken reflected arch to reveal a hidden passage.'},
-  {number:'V', title:'Final chapter', subtitle:'A memory awaits', art:'A memory awaits', clue:'The final clue is yet to be discovered.', solution:'The final chapter is still to come.'}
+  {number:'V', title:'The Sanctuary of Reflections', subtitle:'The way home', art:'The inhabitants return', clue:'The inhabitants were trapped in the water’s reflection. Three discoveries held the way to bring them home.', solution:'The star recalled the fortress as it once was, the golden globe awakened its people, and the lantern led them safely home. We reunited beyond the doorway.'}
 ];
 
 function normalize(value) {
@@ -113,12 +114,19 @@ function beginJourney() {
 }
 
 export function mountJournal({chapter} = {}) {
-  if (!Number.isInteger(chapter) || chapter < 1 || chapter > 4) throw new Error('Journal requires a playable chapter number.');
+  if (!Number.isInteger(chapter) || chapter < 1 || chapter > entries.length) throw new Error('Journal requires a playable chapter number.');
   const previous = document.getElementById('traveller-journal');
   if (previous) throw new Error('Journal is already mounted.');
+  // Repair journals from older versions that saved the finale alone. Its
+  // recorded fifth memory proves the journey had already been completed;
+  // a player who merely opens this chapter keeps their existing progress.
+  const saved=readProgress();
+  if (chapter===entries.length && saved.includes(entries.length) && saved.length<entries.length) {
+    saveProgress(entries.map((_,index)=>index+1));
+  }
   const stylesheet = document.createElement('link');
   stylesheet.rel='stylesheet';
-  stylesheet.href=new URL('./journal.css?v=next-level-choice-20261120', import.meta.url).href;
+  stylesheet.href=new URL('./journal.css?v=journey-five-20261120', import.meta.url).href;
   document.head.append(stylesheet);
 
   const controls = document.querySelector('.game-actions, .top-actions');
@@ -132,7 +140,7 @@ export function mountJournal({chapter} = {}) {
   dialog.id='traveller-journal';
   dialog.className='journey-journal';
   dialog.setAttribute('aria-labelledby','journey-journal-title');
-  dialog.innerHTML=`<div class="journey-journal-inner"><header class="journey-journal-header"><div class="journey-journal-heading"><span class="journey-journal-kicker">✦ &nbsp; The Unfaithful Reflection</span><h2 id="journey-journal-title">The traveller’s journal</h2><p class="journey-journal-subtitle">A record of clues, crossings and memories.</p></div><button class="journey-journal-close" type="button" aria-label="Close the journal">×</button></header><div class="journey-journal-layout"><aside class="journey-journal-index"><div class="journey-journal-index-title"><span>YOUR JOURNEY</span><strong class="journey-journal-count-label"></strong></div><div class="journey-journal-progress-track" aria-hidden="true"><span></span></div><p class="journey-journal-progress" aria-live="polite"></p><nav class="journey-journal-chapters" aria-label="Journal chapters"></nav><p class="journey-journal-index-note">Each crossing leaves a memory.</p></aside><section class="journey-journal-page" aria-live="polite" aria-atomic="true"></section></div><footer class="journey-journal-footer"><p>The final chapter is yet to be written.</p><div class="journey-journal-pager" aria-label="Browse journal pages"><button type="button" data-page-step="-1" aria-label="Previous memory">←</button><span class="journey-journal-page-number"></span><button type="button" data-page-step="1" aria-label="Next memory">→</button></div></footer></div>`;
+  dialog.innerHTML=`<div class="journey-journal-inner"><header class="journey-journal-header"><div class="journey-journal-heading"><span class="journey-journal-kicker">✦ &nbsp; The Unfaithful Reflection</span><h2 id="journey-journal-title">The traveller’s journal</h2><p class="journey-journal-subtitle">A record of clues, crossings and memories.</p></div><button class="journey-journal-close" type="button" aria-label="Close the journal">×</button></header><div class="journey-journal-layout"><aside class="journey-journal-index"><p class="journey-journal-complete" hidden>✦ &nbsp; Final chapter complete</p><div class="journey-journal-index-title"><span>MEMORIES SAVED</span><strong class="journey-journal-count-label"></strong></div><div class="journey-journal-progress-track" aria-hidden="true"><span></span></div><p class="journey-journal-progress" aria-live="polite"></p><nav class="journey-journal-chapters" aria-label="Journal chapters"></nav><p class="journey-journal-index-note">Each crossing leaves a memory.</p></aside><section class="journey-journal-page" aria-live="polite" aria-atomic="true"></section></div><footer class="journey-journal-footer"><p>The final chapter is yet to be written.</p><div class="journey-journal-pager" aria-label="Browse journal pages"><button type="button" data-page-step="-1" aria-label="Previous memory">←</button><span class="journey-journal-page-number"></span><button type="button" data-page-step="1" aria-label="Next memory">→</button></div></footer></div>`;
   document.body.append(dialog);
   const page=dialog.querySelector('.journey-journal-page');
   const chapters=dialog.querySelector('.journey-journal-chapters');
@@ -149,7 +157,7 @@ export function mountJournal({chapter} = {}) {
   let newlyFound = null;
 
   function render() {
-    const completed=readProgress().filter(n=>n<=4);
+    const completed=readProgress();
     if (selected === null) selected=completed.includes(chapter)?chapter:(completed.at(-1)||chapter);
     // The badge identifies the chapter being played; collected memories are
     // shown separately in the journal so a replay never looks like chapter 4.
@@ -157,7 +165,11 @@ export function mountJournal({chapter} = {}) {
     const memoryLabel=completed.length === 1 ? '1 memory collected' : `${completed.length} memories collected`;
     button.title=`Chapter ${chapter} · ${memoryLabel}`;
     button.setAttribute('aria-label',`Open the traveller’s journal. Chapter ${chapter} of ${entries.length}; ${memoryLabel}.`);
-    progressLabel.textContent=completed.length === 1 ? '1 memory collected' : `${completed.length} memories collected`;
+    dialog.querySelector('.journey-journal-complete').hidden = !completed.includes(5);
+    const savedLabel = completed.length === 1 ? '1 memory saved' : `${completed.length} memories saved`;
+    progressLabel.textContent = completed.includes(5)
+      ? `${savedLabel}.${completed.length < entries.length ? ' Some earlier chapters have not been recorded.' : ''}`
+      : savedLabel;
     countLabel.textContent=`${String(completed.length).padStart(2,'0')} / ${String(entries.length).padStart(2,'0')}`;
     progressFill.style.width=`${completed.length/entries.length*100}%`;
     chapters.innerHTML=entries.map((entry,index)=>{
@@ -165,7 +177,7 @@ export function mountJournal({chapter} = {}) {
       const active=selected===index+1;
       return `<button type="button" class="journey-journal-chapter-button${active?' is-active':''}${found?' is-found':' is-locked'}" data-chapter="${index+1}" aria-pressed="${active}" aria-label="Chapter ${entry.number}: ${found?entry.title:'memory not yet found'}"><span class="journey-journal-chapter-symbol" aria-hidden="true">${found?'✦':'✧'}</span><span class="journey-journal-chapter-numeral" aria-hidden="true">${entry.number}</span><span class="journey-journal-chapter-name"><small>CHAPTER ${entry.number}</small><span>${found?entry.title:'A memory awaits'}</span></span></button>`;
     }).join('');
-    dialog.querySelector('.journey-journal-footer p').textContent = 'Each discovery brings the traveller closer to home.';
+    dialog.querySelector('.journey-journal-footer p').textContent = completed.includes(5) ? 'The fortress is home again.' : 'Each discovery brings the traveller closer to home.';
     const entry=entries[selected-1], found=completed.includes(selected), isNew=newlyFound===selected;
     page.classList.toggle('is-locked',!found);
     page.classList.toggle('is-new',Boolean(isNew));
@@ -219,7 +231,7 @@ export function mountJournal({chapter} = {}) {
     document.documentElement.dataset.journalOpen='true';
     document.dispatchEvent(new CustomEvent('journal:open'));
     if (newlyFound !== null && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-      const count = readProgress().filter(n=>n<=4).length;
+      const count = readProgress().length;
       progressFill.style.transition = 'none';
       progressFill.style.width = `${Math.max(0, count - 1) / entries.length * 100}%`;
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -276,9 +288,13 @@ export function mountJournal({chapter} = {}) {
   function record(n=chapter) {
     if (!Number.isInteger(n) || n < 1 || n > keepsakes.length) return false;
     const completed=readProgress(), isNew=!completed.includes(n);
-    if (isNew) {
-      saveProgress([...completed,n]);
-      saveUnseen([...readUnseen(),n]);
+    // Completing the finale closes the whole journey. A player who enters
+    // the final chapter directly should still receive the complete journal;
+    // visiting it alone never fills in the earlier memories.
+    const finaleComplete=chapter===entries.length && n===entries.length;
+    if (isNew || (finaleComplete && completed.length<entries.length)) {
+      saveProgress(finaleComplete ? entries.map((_,index)=>index+1) : [...completed,n]);
+      if (isNew) saveUnseen([...readUnseen(),n]);
       render();
     }
     showKeepsake(n);

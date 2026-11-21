@@ -5,7 +5,7 @@ import { createFortressWorld } from "./fortress-world.js?v=foot-support-2";
 import { createTraveler } from "./traveler3d.js?v=footsteps-2";
 import { createSoundEffects } from "./sound-effects.js?v=level-3";
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import { mountJournal } from "../journey-journal/journal.js?v=next-level-choice-20261120";
+import { mountJournal } from "../journey-journal/journal.js?v=journey-five-20261120";
 
 const journal = mountJournal({chapter:1});
 const chapterProgress = createChapterProgress(1);
@@ -555,7 +555,7 @@ function reachDoor() {
     $("#ending .story-copy").textContent = "The first memory leads to the moonlit garden. The journey continues shortly.";
     $("#ending").classList.remove("is-hidden");
     $('#continue-journey').hidden = true;
-    import('../journey-transition.js?v=next-level-choice-20261120').then(({revealChapterReward}) => {
+    import('../journey-transition.js?v=journey-five-20261120').then(({revealChapterReward}) => {
       revealChapterReward(journal, 1, $('#continue-journey'), () => mode === 'won');
     }).catch(() => { $('#continue-journey').hidden = false; if (mode === 'won') journal.unlock(1); });
   });

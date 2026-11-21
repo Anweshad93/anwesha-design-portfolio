@@ -528,3 +528,6 @@ dialog.journey-journal .journey-sketch-raster {
 @media (max-width:350px) {
   dialog.journey-journal .journey-sketch-raster {height:150px}
 }
+
+.journey-journal-complete{margin:0 0 12px;padding:8px 10px;border:1px solid #d7bb8566;border-radius:8px;color:#ffe3aa;background:#deba7730;font:700 .68rem/1.35 system-ui,sans-serif;letter-spacing:.07em;text-transform:uppercase}
+.journey-journal-complete[hidden]{display:none}

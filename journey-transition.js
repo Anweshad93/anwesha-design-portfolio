@@ -118,6 +118,7 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
     1: ['CHAPTER II', 'The Moonlit Garden', 'The water holds another path.', '#252b45'],
     2: ['CHAPTER III', 'The Water Chamber', 'A light waits beyond the crossing.', '#102f37'],
     3: ['CHAPTER IV', 'The Hall of False Dawn', 'A doorway hides in plain sight.', '#53363f'],
+    4: ['CHAPTER V', 'The Sanctuary of Reflections', 'The way home waits beneath the water.', '#203a3b']
   };
   function showNextChapter() {
     if (stopped) return;

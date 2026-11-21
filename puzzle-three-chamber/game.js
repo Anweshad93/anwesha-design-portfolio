@@ -11,7 +11,7 @@ import {createGuide} from '../puzzle-two-garden/guide.js?v=visible-1';
 import {createGuideBubble} from './guide-bubble.js?v=water-clue-1';
 import {createMemoryMural} from './memory-mural.js?v=gentle-stones-1';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import {mountJournal} from '../journey-journal/journal.js?v=next-level-choice-20261120';
+import {mountJournal} from '../journey-journal/journal.js?v=journey-five-20261120';
 
 const journal=mountJournal({chapter:3});
 const chapterProgress = createChapterProgress(3);
@@ -216,7 +216,7 @@ const clock=new THREE.Clock();function frame(){requestAnimationFrame(frame);cons
  if(endingTime!==null){endingTime-=dt;if(endingTime<=0){
   endingTime=null;finished=true;phase='finished';hideGuide();$('#ending').classList.remove('hidden');refresh();
   const next=$('#ending .continue-link');next.hidden=true;
-  import('../journey-transition.js?v=next-level-choice-20261120').then(({revealChapterReward})=>{
+  import('../journey-transition.js?v=journey-five-20261120').then(({revealChapterReward})=>{
    revealChapterReward(journal,3,next,()=>finished&&!$('#ending').classList.contains('hidden'));
   }).catch(()=>{next.hidden=false;if(finished)journal.unlock(3);});
  }}}

@@ -13,6 +13,7 @@
     2: ['CHAPTER II', 'The Moonlit Garden', 'The water holds another path.', '#252b45'],
     3: ['CHAPTER III', 'The Water Chamber', 'A light waits beyond the crossing.', '#102f37'],
     4: ['CHAPTER IV', 'The Hall of False Dawn', 'A doorway hides in plain sight.', '#53363f'],
+    5: ['CHAPTER V', 'The Sanctuary of Reflections', 'The way home waits beneath the water.', '#203a3b']
   };
   const data = entries[chapter];
   if (!marker || !data || marker.chapter !== chapter || marker.path !== location.pathname ||
