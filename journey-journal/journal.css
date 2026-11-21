@@ -13,6 +13,12 @@ dialog.journey-journal::backdrop{background:rgba(12,16,25,.82);backdrop-filter:b
 .journey-journal-header h2{margin:7px 0 5px;font:normal clamp(2rem,4vw,3rem)/1.04 Georgia,serif;letter-spacing:-.035em;color:#fff1db}
 .journey-journal-subtitle{margin:0;color:#cbbfba;font:normal .8rem/1.5 system-ui,sans-serif}
 .journey-journal-close{display:grid!important;place-items:center!important;flex:none;width:44px;height:44px;padding:0;border:1px solid #d8bf9e80;border-radius:10px;background:#26313b;color:#fff0d7;font:normal 1.7rem/1 system-ui,sans-serif;cursor:pointer}
+.journey-journal-header.has-next-level .journey-journal-heading{flex:1;min-width:0}
+.journey-journal-next-level{display:inline-flex;align-items:center;justify-content:center;gap:.4em;flex:none;min-height:44px;padding:0 15px;border:1px solid #f1d2a0;border-radius:10px;background:#efd09f;color:#352d32;font:700 .76rem/1.2 system-ui,-apple-system,sans-serif;white-space:nowrap;cursor:pointer;transition:background .18s,border-color .18s,box-shadow .18s}
+.journey-journal-next-level::after{content:'↗';font-size:.95em}
+.journey-journal-next-level:hover{background:#ffe6b8;border-color:#fff1d6;box-shadow:0 0 0 2px #f5ca8977}
+.journey-journal-next-level:focus-visible{outline:3px solid #ffe8b4;outline-offset:3px}
+.journey-journal-next-level:disabled{opacity:1;cursor:default}
 .journey-journal-close:hover,.journey-journal-close:focus-visible,.journey-journal-chapter-button:focus-visible,.journey-journal-pager button:focus-visible{outline:2px solid #f2cb88;outline-offset:3px}
 .journey-journal-layout{display:grid;grid-template-columns:minmax(165px,205px) minmax(0,1fr);gap:24px;margin-top:22px}
 .journey-journal-index{min-width:0;padding-top:4px}
@@ -96,6 +102,12 @@ dialog.journey-journal::backdrop{background:rgba(12,16,25,.82);backdrop-filter:b
   .journey-journal-footer{align-items:stretch;flex-direction:column;gap:12px}
   .journey-journal-footer p{max-width:none}
   .journey-journal-pager{justify-content:flex-end}
+}
+@media(max-width:480px){
+  .journey-journal-header.has-next-level{flex-wrap:wrap;gap:8px}
+  .journey-journal-header.has-next-level .journey-journal-heading{flex:1 1 calc(100% - 54px);order:0}
+  .journey-journal-header.has-next-level .journey-journal-close{order:1}
+  .journey-journal-header.has-next-level .journey-journal-next-level{order:2;margin-left:auto}
 }
 @media(prefers-reduced-motion:reduce){.journey-journal-ending-new,dialog.journey-journal[open],.journey-journal-page,.journey-journal-drawing,.journey-journal-new,.journey-journal-sparkles,.journey-journal-page.is-new .journey-journal-art{animation:none!important}.journey-journal-progress-track span,.journey-journal-chapter-button{transition:none!important}}
 
@@ -223,4 +235,296 @@ dialog.journey-journal[open] .journey-journal-drawing svg{animation:journal-sket
   dialog.journey-journal[open] .journey-journal-drawing :is(.sketch-ink,.sketch-stone,.sketch-gold,.sketch-gold-line,.sketch-ring,.sketch-globe,.sketch-dot),
   .journey-journal-motes i,.journey-journal-sparkles{animation:none!important;stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:1}
   .journey-journal-motes i,.journey-journal-sparkles{opacity:.35}
+}
+
+/* A traveller's sketchbook: each recovered memory sits on warm paper, with a
+   small memento and a note. The page comes to rest after its one-time reveal. */
+dialog.journey-journal .journey-journal-page {
+  background:#f6ecd7;
+  border-color:#d4b88d;
+  border-radius:8px;
+  box-shadow:0 14px 34px #0b111b55, inset 0 0 0 4px #fff9ed80;
+  transform-origin:left center;
+  animation:journal-page-open .6s cubic-bezier(.2,.65,.3,1) both;
+}
+dialog.journey-journal .journey-journal-art {
+  min-height:235px;
+  padding:17px 22px 36px;
+  background:repeating-linear-gradient(0deg,transparent 0 26px,#8065480a 27px 28px),linear-gradient(135deg,#fff9ec,#f1e3ca 78%,#ead8bb);
+  border-bottom:1px solid #d5bea0;
+}
+dialog.journey-journal .journey-journal-art::before {
+  inset:12px;
+  border:1px solid #aa87612b;
+  border-radius:2px;
+}
+dialog.journey-journal .journey-journal-art::after {
+  content:'';
+  position:absolute;
+  top:9px;
+  left:50%;
+  right:auto;
+  width:68px;
+  height:15px;
+  transform:translateX(-50%) rotate(-2deg);
+  background:#e2caa586;
+  box-shadow:0 1px 3px #8a6b421c;
+  animation:none!important;
+}
+dialog.journey-journal .journey-journal-art-ornament {display:none}
+dialog.journey-journal .journey-journal-drawing {
+  display:grid;
+  width:min(100%,400px);
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  color:#654e40;
+  animation:none!important;
+}
+dialog.journey-journal .journey-journal-drawing svg.journey-sketch-illustration {
+  width:100%;
+  height:clamp(145px,20vw,185px);
+  max-width:400px;
+  overflow:visible;
+  filter:none;
+  animation:none!important;
+}
+dialog.journey-journal .journey-journal-art-caption {
+  bottom:13px;
+  color:#927253;
+  font-size:.53rem;
+  letter-spacing:.14em;
+}
+dialog.journey-journal .journey-journal-art-caption span {color:#ad8051}
+dialog.journey-journal .journey-journal-art-locked {
+  min-height:180px;
+  background:repeating-linear-gradient(0deg,transparent 0 26px,#8065480a 27px 28px),linear-gradient(135deg,#fff9ec,#f1e3ca);
+}
+dialog.journey-journal .journey-journal-lock-art {color:#b58d5c;opacity:.65}
+dialog.journey-journal .journey-journal-sparkles,
+dialog.journey-journal .journey-journal-motes {display:none}
+
+/* Each layer arrives only once, like ink being added to a page. */
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-background {animation:sketchbook-layer .8s .15s ease-out backwards}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-architecture {animation:sketchbook-layer .9s .55s ease-out backwards}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-detail {animation:sketchbook-layer .8s 1.05s ease-out backwards}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-people {animation:sketchbook-layer .8s 1.45s ease-out backwards}
+dialog.journey-journal[open] .journey-sketch-illustration :is(.sketch-layer-background,.sketch-layer-architecture,.sketch-layer-detail,.sketch-layer-people) path[pathLength="1"] {
+  animation:sketchbook-ink 1.3s ease-out backwards;
+}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-architecture path[pathLength="1"] {animation-delay:.55s}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-detail path[pathLength="1"] {animation-delay:1.05s}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-people path[pathLength="1"] {animation-delay:1.45s}
+
+.journal-memory-note {
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:17px 24px;
+  background:linear-gradient(100deg,#f4e6cd,#fff8e9);
+  border-bottom:1px solid #d9c6a8;
+}
+.journal-memory-keepsake {
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex:0 0 66px;
+  width:66px;
+  height:66px;
+  border:1px solid #c5a982;
+  border-radius:3px;
+  background:#fffaf0;
+  box-shadow:0 3px 8px #7c593826;
+  transform:rotate(-3deg);
+  animation:sketchbook-keepsake .65s 1.9s ease-out backwards;
+}
+.journal-memory-keepsake::before {
+  content:'';
+  position:absolute;
+  z-index:1;
+  top:-6px;
+  left:50%;
+  width:27px;
+  height:10px;
+  transform:translateX(-50%) rotate(4deg);
+  background:#e5cda48f;
+}
+.journal-memory-keepsake svg {display:block;width:48px;height:48px;overflow:visible;filter:none}
+.journal-memory-keepsake .keepsake-halo {fill:#d0a56317;stroke:#ae835a;stroke-width:1.2}
+.journal-memory-keepsake .keepsake-fill {fill:#d2a466;stroke:#aa7842;stroke-width:1.4}
+.journal-memory-keepsake :is(.keepsake-line,.keepsake-light) {stroke:#9f754d;opacity:1}
+.journal-memory-handwriting {
+  flex:1;
+  min-width:0;
+  margin:0;
+  color:#5e4638;
+  font:italic 1rem/1.35 "Bradley Hand","Segoe Print","Comic Sans MS",cursive;
+  text-wrap:pretty;
+  animation:sketchbook-note .7s 2.2s ease-out backwards;
+}
+.journal-memory-handwriting::before {
+  content:'A NOTE FROM THE TRAVELLER';
+  display:block;
+  margin-bottom:5px;
+  color:#9b7959;
+  font:700 .52rem/1.3 system-ui,-apple-system,sans-serif;
+  letter-spacing:.13em;
+}
+dialog.journey-journal .journey-journal-copy {background:linear-gradient(130deg,#fffaf0,#f4e7d2)}
+@keyframes journal-page-open {from{opacity:0;transform:perspective(900px) rotateY(-3deg) translateY(5px)}to{opacity:1;transform:perspective(900px) rotateY(0) translateY(0)}}
+@keyframes sketchbook-layer {from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sketchbook-ink {from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+@keyframes sketchbook-keepsake {from{opacity:0;transform:rotate(-7deg) translateY(7px) scale(.92)}to{opacity:1;transform:rotate(-3deg) translateY(0) scale(1)}}
+@keyframes sketchbook-note {from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px) {
+  dialog.journey-journal .journey-journal-art {min-height:195px;padding:14px 17px 31px}
+  dialog.journey-journal .journey-journal-art-locked {min-height:150px}
+  dialog.journey-journal .journey-journal-drawing svg.journey-sketch-illustration {height:150px}
+  .journal-memory-note {padding:14px 18px;gap:14px}
+  .journal-memory-keepsake {flex-basis:56px;width:56px;height:56px}
+  .journal-memory-keepsake svg {width:42px;height:42px}
+  .journal-memory-handwriting {font-size:.94rem}
+}
+@media(max-width:350px) {
+  dialog.journey-journal .journey-journal-art {min-height:180px;padding:12px 14px 28px}
+  dialog.journey-journal .journey-journal-drawing svg.journey-sketch-illustration {height:135px}
+  .journal-memory-note {padding:12px 16px;gap:12px}
+  .journal-memory-handwriting {font-size:.9rem}
+}
+@media(prefers-reduced-motion:reduce) {
+  dialog.journey-journal .journey-journal-page,
+  dialog.journey-journal[open] .journey-sketch-illustration :is(.sketch-layer-background,.sketch-layer-architecture,.sketch-layer-detail,.sketch-layer-people),
+  dialog.journey-journal[open] .journey-sketch-illustration path[pathLength="1"],
+  .journal-memory-keepsake,.journal-memory-handwriting {animation:none!important;opacity:1;stroke-dasharray:none!important;stroke-dashoffset:0!important}
+}
+/* Disable the earlier looping twinkles and drifting accents in recovered
+   memories; the layered sketch and note settle into a still finished page. */
+dialog.journey-journal .journey-journal-page.is-new .journey-journal-art {animation:none!important}
+dialog.journey-journal[open] .journey-sketch-illustration :is(.sketch-water,.sketch-gold,.sketch-globe,.sketch-ring,.sketch-dot,.sketch-gold-line,.sketch-ink,.sketch-stone) {animation:none}
+dialog.journey-journal[open] .journey-sketch-illustration :is(.sketch-layer-background,.sketch-layer-architecture,.sketch-layer-detail,.sketch-layer-people) path[pathLength="1"] {animation:sketchbook-ink 1.3s ease-out backwards}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-architecture path[pathLength="1"] {animation-delay:.55s}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-detail path[pathLength="1"] {animation-delay:1.05s}
+dialog.journey-journal[open] .journey-sketch-illustration .sketch-layer-people path[pathLength="1"] {animation-delay:1.45s}
+@media(prefers-reduced-motion:reduce) {
+  dialog.journey-journal[open] .journey-sketch-illustration :is(.sketch-layer-background,.sketch-layer-architecture,.sketch-layer-detail,.sketch-layer-people) path[pathLength="1"] {animation:none!important;stroke-dasharray:none!important;stroke-dashoffset:0!important}
+}
+
+/* On shorter desktop windows, keep the complete open page in view so moving
+   between memories does not scroll the picture or heading out of sight. */
+@media (min-width:701px) and (max-height:820px) {
+  dialog.journey-journal .journey-journal-inner {padding:18px 24px}
+  dialog.journey-journal .journey-journal-header {gap:14px;padding-bottom:10px}
+  dialog.journey-journal .journey-journal-header h2 {font-size:2.1rem;margin:4px 0 3px}
+  dialog.journey-journal .journey-journal-subtitle {font-size:.76rem;line-height:1.35}
+  dialog.journey-journal .journey-journal-layout {gap:20px;margin-top:12px}
+  dialog.journey-journal .journey-journal-index {padding-top:2px}
+  dialog.journey-journal .journey-journal-progress-track {margin:7px 0 5px}
+  dialog.journey-journal .journey-journal-progress {margin-bottom:10px}
+  dialog.journey-journal .journey-journal-chapters {gap:4px}
+  dialog.journey-journal .journey-journal-chapter-button {min-height:44px;padding:5px 8px}
+  dialog.journey-journal .journey-journal-index-note {margin-top:10px}
+  dialog.journey-journal .journey-journal-art {min-height:160px;padding:10px 20px 25px}
+  dialog.journey-journal .journey-journal-art::before {inset:8px}
+  dialog.journey-journal .journey-journal-art::after {top:6px}
+  dialog.journey-journal .journey-journal-art-caption {bottom:8px}
+  dialog.journey-journal .journey-journal-art-locked {min-height:160px}
+  dialog.journey-journal .journey-journal-drawing svg.journey-sketch-illustration {height:125px}
+  dialog.journey-journal .journal-memory-note {gap:14px;padding:8px 19px}
+  dialog.journey-journal .journal-memory-keepsake {flex-basis:52px;width:52px;height:52px}
+  dialog.journey-journal .journal-memory-keepsake svg {width:39px;height:39px}
+  dialog.journey-journal .journal-memory-handwriting {font-size:.94rem;line-height:1.25}
+  dialog.journey-journal .journey-journal-copy {padding:11px 19px 14px}
+  dialog.journey-journal .journey-journal-page-subtitle {margin:7px 0 2px}
+  dialog.journey-journal .journey-journal-copy h3 {font-size:1.75rem}
+  dialog.journey-journal .journey-journal-divider {margin:7px 0}
+  dialog.journey-journal .journey-journal-copy p:not(.journey-journal-page-subtitle) {margin-top:6px;font-size:.8rem;line-height:1.38}
+  dialog.journey-journal .journey-journal-footer {margin-top:10px}
+  dialog.journey-journal .journey-journal-pager button {width:38px;height:38px}
+}
+
+/* A hand-drawn memory appears gently on the paper once its artwork is ready.
+   The note and keepsake follow, and everything settles without looping. */
+dialog.journey-journal .journey-sketch-raster {
+  display:block;
+  width:100%;
+  max-width:400px;
+  height:clamp(165px,20vw,200px);
+  object-fit:contain;
+  mix-blend-mode:multiply;
+  opacity:0;
+}
+dialog.journey-journal .journey-journal-page.is-sketch-ready .journey-sketch-raster {
+  animation:handdrawn-sketch-appear 2.15s cubic-bezier(.2,.6,.25,1) both;
+}
+dialog.journey-journal .journal-memory-note :is(.journal-memory-keepsake,.journal-memory-handwriting) {
+  animation:none;
+  opacity:0;
+}
+dialog.journey-journal .journey-journal-page.is-sketch-ready .journal-memory-keepsake {
+  opacity:1;
+  animation:sketchbook-keepsake .65s 2.0s ease-out backwards;
+}
+dialog.journey-journal .journey-journal-page.is-sketch-ready .journal-memory-handwriting {
+  opacity:1;
+  animation:sketchbook-note .7s 2.25s ease-out backwards;
+}
+.journey-sketch-fallback {
+  display:block;
+  padding:38px 10px;
+  color:#745b4c;
+  font:italic .85rem/1.4 Georgia,serif;
+  text-align:center;
+}
+@keyframes handdrawn-sketch-appear {
+  0% {opacity:0;filter:blur(3px)}
+  50% {opacity:.65;filter:blur(1px)}
+  100% {opacity:1;filter:blur(0)}
+}
+@media(max-width:700px) {
+  dialog.journey-journal .journey-sketch-raster {height:155px}
+}
+@media(max-width:350px) {
+  dialog.journey-journal .journey-sketch-raster {height:140px}
+}
+@media(min-width:701px) and (max-height:820px) {
+  dialog.journey-journal .journey-sketch-raster {height:145px}
+}
+@media(prefers-reduced-motion:reduce) {
+  dialog.journey-journal .journey-sketch-raster,
+  dialog.journey-journal .journal-memory-note :is(.journal-memory-keepsake,.journal-memory-handwriting) {
+    animation:none!important;
+    opacity:1!important;
+    filter:none!important;
+  }
+}
+
+/* Blend the illustrated paper into the journal page rather than presenting it
+   as a small rectangular print. Keep the original artwork's colour and let
+   only its outer paper edges dissolve into the surrounding sheet. */
+dialog.journey-journal .journey-journal-art:not(.journey-journal-art-locked) .journey-journal-drawing {
+  width:100%;
+  max-width:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 5%,#000 94%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 5%,#000 94%,transparent 100%);
+}
+dialog.journey-journal .journey-sketch-raster {
+  width:auto;
+  max-width:100%;
+  height:clamp(185px,22vw,225px);
+  justify-self:center;
+  mix-blend-mode:normal;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%);
+}
+@media (min-width:701px) and (max-height:820px) {
+  dialog.journey-journal .journey-journal-art:not(.journey-journal-art-locked) {min-height:208px;padding:4px 14px 17px}
+  dialog.journey-journal .journey-sketch-raster {height:188px}
+  dialog.journey-journal .journey-journal-art-caption {bottom:6px}
+}
+@media (max-width:700px) {
+  dialog.journey-journal .journey-sketch-raster {height:170px}
+}
+@media (max-width:350px) {
+  dialog.journey-journal .journey-sketch-raster {height:150px}
 }

@@ -49,23 +49,53 @@ function prepareTransition(link) {
 // This is only called for an automatically opened completion journal, never
 // when the player opens the journal while solving a puzzle. The final
 // chapter has no next link and therefore stays on the journal.
+const scheduledJournals = new WeakMap();
 export function scheduleNextChapter(link, isEndingVisible, chapter) {
   if (!link || !isEndingVisible()) return;
   const dialog = document.getElementById('traveller-journal');
   if (!dialog) return;
+  scheduledJournals.get(dialog)?.();
   prepareTransition(link);
   link.hidden = true;
 
+  // The journal is also available during a puzzle. Add this action only to
+  // the automatically opened completion journal, where the next chapter is
+  // actually available, and route it through the same handoff as the timer.
+  const header = dialog.querySelector('.journey-journal-header');
+  const closeButton = header?.querySelector('.journey-journal-close');
+  let nextButton = null;
+  if (header && closeButton) {
+    nextButton = document.createElement('button');
+    nextButton.type = 'button';
+    nextButton.className = 'journey-journal-next-level';
+    nextButton.textContent = 'Next level';
+    header.classList.add('has-next-level');
+    header.insertBefore(nextButton, closeButton);
+    nextButton.addEventListener('click', onNextClick);
+  }
+
   let elapsed = 0, previous = null, frame = 0, stopped = false;
-  function stop() {
+  function removeNextButton() {
+    nextButton?.removeEventListener('click', onNextClick);
+    nextButton?.remove();
+    header?.classList.remove('has-next-level');
+    nextButton = null;
+  }
+  function stop(keepButton = false) {
     if (stopped) return;
     stopped = true;
+    if (scheduledJournals.get(dialog) === stop) scheduledJournals.delete(dialog);
     cancelAnimationFrame(frame);
     document.removeEventListener('visibilitychange', resetClock);
     document.removeEventListener('journal:close', onJournalClose);
     dialog.removeEventListener('click', onCloseClick, true);
     dialog.removeEventListener('cancel', onCancel, true);
     for (const type of ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll']) document.removeEventListener(type, onActivity, true);
+    if (keepButton) {
+      // Leave the header stable while the journal fades, but make a second
+      // activation impossible. It is removed when the fade completes.
+      if (nextButton) nextButton.disabled = true;
+    } else removeNextButton();
   }
   function resetClock() { previous = null; }
   // Keep the page available for longer when a player explores, scrolls or
@@ -74,6 +104,7 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
     if (dialog.open && (event.target === dialog || dialog.contains(event.target))) { elapsed = 0; previous = null; }
   }
   function onJournalClose() { if (!stopped) showNextChapter(); }
+  function onNextClick(event) { event.preventDefault(); showNextChapter(); }
   // Intercept the journal's own close control before it closes the top-layer
   // dialog, so a manual close receives the same smooth fade as the timer.
   function onCloseClick(event) {
@@ -89,8 +120,9 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
     3: ['CHAPTER IV', 'The Hall of False Dawn', 'A doorway hides in plain sight.', '#53363f'],
   };
   function showNextChapter() {
-    stop();
-    if (!isEndingVisible()) return;
+    if (stopped) return;
+    stop(true);
+    if (!isEndingVisible()) { removeNextButton(); return; }
     document.dispatchEvent(new Event('journey:handoff'));
     const [eyebrow, title, line, background] = destinations[chapter] || ['THE JOURNEY CONTINUES', 'A new chapter', 'The path lies ahead.', '#252b45'];
     const screen = document.createElement('section');
@@ -130,6 +162,7 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
       }
       dialog.classList.remove('journey-transition-leaving');
       dialog.inert = false;
+      removeNextButton();
       screen.classList.remove('is-waiting');
       screen.focus({preventScroll:true});
       fading = false;
@@ -141,6 +174,7 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
         if (game) game.inert = wasInert;
         dialog.classList.remove('journey-transition-leaving');
         dialog.inert = false;
+        removeNextButton();
         screen.remove();
         return;
       }
@@ -181,5 +215,6 @@ export function scheduleNextChapter(link, isEndingVisible, chapter) {
   dialog.addEventListener('click', onCloseClick, true);
   dialog.addEventListener('cancel', onCancel, true);
   for (const type of ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll']) document.addEventListener(type, onActivity, true);
+  scheduledJournals.set(dialog, stop);
   frame = requestAnimationFrame(tick);
 }

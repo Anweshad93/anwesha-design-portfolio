@@ -12,7 +12,7 @@ import { createGardenMotion } from './motion.js?v=landing-4';
 import { createTwoHandCarry } from './carry.js?v=two-hands-1';
 import { createGardenSounds } from './sounds.js?v=5';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import { mountJournal } from '../journey-journal/journal.js?v=portfolio-iv-20261120';
+import { mountJournal } from '../journey-journal/journal.js?v=next-level-choice-20261120';
 
 const journal=mountJournal({chapter:2});
 const chapterProgress = createChapterProgress(2);
@@ -154,7 +154,7 @@ function frame(){
  if(endingDelay!==null){endingDelay-=dt;if(endingDelay<=0){
   endingDelay=null;$('#ending').classList.remove('hidden');
   const next=$('#ending .continue-link');next.hidden=true;
-  import('../journey-transition.js?v=14').then(({revealChapterReward})=>{
+  import('../journey-transition.js?v=next-level-choice-20261120').then(({revealChapterReward})=>{
    revealChapterReward(journal,2,next,()=>finished&&!$('#ending').classList.contains('hidden'));
   }).catch(()=>{next.hidden=false;if(finished)journal.unlock(2);});
  }}

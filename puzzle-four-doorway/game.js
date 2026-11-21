@@ -13,7 +13,7 @@ import {createHallMusic} from './music.js?v=balanced-20261120';
 import {createFlipSound} from './flip-sound.js?v=1';
 import {createLampSound} from './lamp-sound.js?v=1';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import {mountJournal} from '../journey-journal/journal.js?v=portfolio-iv-20261120';
+import {mountJournal} from '../journey-journal/journal.js?v=next-level-choice-20261120';
 
 const journal=mountJournal({chapter:4});
 const chapterProgress = createChapterProgress(4);
@@ -374,7 +374,7 @@ $('#wake-seal').onclick=()=>{if(phase!=='seal'||paused||movement)return;effects.
 $('#enter').onclick=()=>{if(phase!=='passage-ready'||paused||movement)return;phase='entering';$('#objective').textContent='Follow the hidden passage.';$('#status').textContent='The traveller approaches the doorway the water revealed.';refresh();afterGuideDeparture(()=>{move(new THREE.Vector3(0,.55,-5.75),()=>{phase='done';journal.record(4);music.finish();$('#ending').classList.remove('hidden');refresh();// Pause the connected journey here while the final chapter is in development.
 // The shared reward still opens the earned journal entry; without a next link
 // it stays available until the player closes it.
-import('../journey-transition.js?v=14').then(({revealChapterReward})=>{revealChapterReward(journal,4,null,()=>phase==='done'&&!$('#ending').classList.contains('hidden'));}).catch(()=>{if(phase==='done')journal.unlock(4);});});movement.floorTransition=true;});};
+import('../journey-transition.js?v=next-level-choice-20261120').then(({revealChapterReward})=>{revealChapterReward(journal,4,null,()=>phase==='done'&&!$('#ending').classList.contains('hidden'));}).catch(()=>{if(phase==='done')journal.unlock(4);});});movement.floorTransition=true;});};
 $('#hint').onclick=()=>showGuide(hint(),10);
 function soundLabel(){$('#sound').textContent=sound?'Sound on':'Sound off';$('#sound').setAttribute('aria-pressed',String(sound));}soundLabel();$('#sound').onclick=()=>{sound=!sound;try{sessionStorage.setItem('unfaithful-reflection-sound',sound?'on':'off');}catch(_){}effects.setEnabled(sound&&!paused);flipSound.setEnabled(sound&&!paused);lampSound.setEnabled(sound&&!paused);music.setEnabled(sound);if(sound&&!paused){effects.unlock();flipSound.unlock();lampSound.unlock();}soundLabel();};
 function setPause(value){if(!started)return;paused=value;hideGuide();$('#pause-panel').classList.toggle('hidden',!paused);$('#pause').textContent=paused?'Resume':'Pause';$('#pause').setAttribute('aria-pressed',String(paused));effects.setEnabled(sound&&!paused);flipSound.setEnabled(sound&&!paused);lampSound.setEnabled(sound&&!paused);music.setPaused(paused);if(!paused&&sound){effects.unlock();flipSound.unlock();lampSound.unlock();}refresh();}$('#pause').onclick=()=>setPause(!paused);$('#resume').onclick=()=>setPause(false);$('#restart').onclick=()=>location.reload();

@@ -9,11 +9,21 @@ const ARCHIVE_KEY = `${LEGACY_KEY}-previous-journeys`;
 let memoryProgress = [];
 let unseenProgress = [];
 
-const drawings = [
-  `<svg viewBox="0 0 180 120" aria-hidden="true"><path class="sketch-water" d="M18 91c22-7 41 6 63 0s41-6 82 0M30 101c19-5 34 4 52 0s37-4 66 0"/><path pathLength="1" class="sketch-stone" d="M20 78 62 62 97 75 55 91Z"/><path pathLength="1" class="sketch-ink" d="M83 66 83 37 130 24 130 55M83 37 66 31 111 18 130 24"/><circle class="sketch-ring" cx="118" cy="79" r="19"/><path class="sketch-gold" d="m118 63 3.5 10 10-3.5-3.5 10 3.5 10-10-3.5-3.5 10-3.5-10-10 3.5 3.5-10-3.5-10 10 3.5z"/></svg>`,
-  `<svg viewBox="0 0 180 120" aria-hidden="true"><path class="sketch-water" d="M14 91c22-7 41 6 63 0s41-6 89 0M25 101c20-5 34 4 52 0s39-4 73 0"/><path pathLength="1" class="sketch-ink" d="M33 83 57 73 75 79 51 89ZM105 84l23-9 20 7-23 9Z"/><path class="sketch-gold" d="M51 76a5 5 0 1 0 4 8 5 5 0 0 1-4-8ZM125 78l2 4 4 1-4 2-2 4-1-4-4-2 4-1Z"/><circle class="sketch-globe" cx="90" cy="48" r="16"/><ellipse class="sketch-gold-line" cx="90" cy="48" rx="31" ry="11" transform="rotate(-25 90 48)"/><ellipse class="sketch-gold-line" cx="90" cy="48" rx="28" ry="10" transform="rotate(35 90 48)"/></svg>`,
-  `<svg viewBox="0 0 180 120" aria-hidden="true"><path class="sketch-water" d="M20 94c22-7 40 6 62 0s43-6 78 0M36 104c16-5 31 4 50 0s34-4 55 0"/><path pathLength="1" class="sketch-ink" d="M68 38h44v49H68zM64 34h52M64 90h52M77 34c0-19 26-19 26 0M73 42v41M107 42v41"/><path class="sketch-gold" d="M90 74c-12-7-5-18 0-24 6 8 13 16 0 24Z"/><path class="sketch-gold-line" d="M89 73c-5-4-2-9 1-13 3 4 5 9-1 13Z"/></svg>`,
-  `<svg viewBox="0 0 180 120" aria-hidden="true"><path pathLength="1" class="sketch-ink" d="M47 66V46a43 43 0 0 1 86 0v20M40 66h100"/><path class="sketch-water" d="M16 73c22-6 45 5 67 0s42-5 81 0M27 104c19-4 35 4 54 0s39-4 73 0"/><path class="sketch-gold-line" d="M57 80v6a33 33 0 0 0 66 0v-6M53 80h74"/><circle class="sketch-dot" cx="90" cy="20" r="2"/></svg>`,
+// Each recovered page has its own hand-drawn scene, loaded only when that memory is shown.
+const sceneDescriptions = [
+  'The courtyard pool and bridge beside a domed pavilion, golden wheel and red button.',
+  'The moonlit garden pool with marked stepping stones, a bare tree and lanterns.',
+  'The Water Chamber, with marked stepping stones, lanterns and a far doorway.',
+  'The Hall of False Dawn, its red carpet, podium and reflected doorway.',
+  'A page yet to be written.'
+];
+
+const fieldNotes = [
+  'The water showed me the way.',
+  'A quiet touch brought the garden to life.',
+  'I carried a light that still burned.',
+  'The water remembered a doorway.',
+  'A memory awaits.'
 ];
 
 // The objects grow into a small collection as the traveller earns memories.
@@ -108,7 +118,7 @@ export function mountJournal({chapter} = {}) {
   if (previous) throw new Error('Journal is already mounted.');
   const stylesheet = document.createElement('link');
   stylesheet.rel='stylesheet';
-  stylesheet.href=new URL('./journal.css?v=auto-sketch-20261120', import.meta.url).href;
+  stylesheet.href=new URL('./journal.css?v=next-level-choice-20261120', import.meta.url).href;
   document.head.append(stylesheet);
 
   const controls = document.querySelector('.game-actions, .top-actions');
@@ -139,8 +149,6 @@ export function mountJournal({chapter} = {}) {
   let newlyFound = null;
 
   function render() {
-    // The public preview ends at Chapter IV. Keep any saved Chapter V
-    // progress intact, but do not display its unfinished memory yet.
     const completed=readProgress().filter(n=>n<=4);
     if (selected === null) selected=completed.includes(chapter)?chapter:(completed.at(-1)||chapter);
     // The badge identifies the chapter being played; collected memories are
@@ -161,9 +169,34 @@ export function mountJournal({chapter} = {}) {
     const entry=entries[selected-1], found=completed.includes(selected), isNew=newlyFound===selected;
     page.classList.toggle('is-locked',!found);
     page.classList.toggle('is-new',Boolean(isNew));
+    page.classList.remove('is-sketch-ready');
     page.innerHTML=found
-      ? `<div class="journey-journal-art" data-art="${selected}"><span class="journey-journal-art-ornament" aria-hidden="true">✧</span><div class="journey-journal-drawing" role="img" aria-label="Illustration: ${entry.art}">${drawings[selected-1]}<span class="journey-journal-sparkles" aria-hidden="true">✦ &nbsp; ✧ &nbsp; ✦</span><span class="journey-journal-motes" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><span class="journey-journal-art-caption">${entry.art} <span aria-hidden="true">✦</span></span></div><div class="journey-journal-copy"><div class="journey-journal-page-meta"><span>MEMORY ${String(selected).padStart(2,'0')} <i>✦</i> CHAPTER ${entry.number}</span>${isNew?'<span class="journey-journal-new">NEW MEMORY</span>':''}</div><p class="journey-journal-page-subtitle">${entry.subtitle}</p><h3>${entry.title}</h3><div class="journey-journal-divider" aria-hidden="true"><span>✦</span></div><p><strong>The clue</strong>${entry.clue}</p><p><strong>What I did</strong>${entry.solution}</p></div>`
+      ? `<div class="journey-journal-art" data-art="${selected}"><span class="journey-journal-art-ornament" aria-hidden="true">✧</span><div class="journey-journal-drawing" role="img" aria-label="${sceneDescriptions[selected-1]}"><img class="journey-sketch-raster" src="${new URL(`./assets/chapter-${selected}.png`, import.meta.url).href}" alt="" aria-hidden="true" decoding="async"></div><span class="journey-journal-art-caption">${entry.art} <span aria-hidden="true">✦</span></span></div><div class="journal-memory-note"><span class="journal-memory-keepsake" aria-hidden="true">${keepsakes[selected-1].svg}</span><p class="journal-memory-handwriting">“${fieldNotes[selected-1]}”</p></div><div class="journey-journal-copy"><div class="journey-journal-page-meta"><span>MEMORY ${String(selected).padStart(2,'0')} <i>✦</i> CHAPTER ${entry.number}</span>${isNew?'<span class="journey-journal-new">NEW MEMORY</span>':''}</div><p class="journey-journal-page-subtitle">${entry.subtitle}</p><h3>${entry.title}</h3><div class="journey-journal-divider" aria-hidden="true"><span>✦</span></div><p><strong>The clue</strong>${entry.clue}</p><p><strong>What I did</strong>${entry.solution}</p></div>`
       : `<div class="journey-journal-art journey-journal-art-locked"><div class="journey-journal-lock-art" aria-hidden="true">✧</div><span class="journey-journal-art-caption">A PAGE YET TO BE WRITTEN</span></div><div class="journey-journal-copy"><div class="journey-journal-page-meta"><span>CHAPTER ${entry.number}</span></div><p class="journey-journal-page-subtitle">The story continues</p><h3>A memory awaits</h3><div class="journey-journal-divider" aria-hidden="true"><span>✦</span></div><p>Complete this chapter to reveal its sketch and the clue it holds.</p></div>`;
+    if (found) {
+      const sketch = page.querySelector('.journey-sketch-raster');
+      const drawing = sketch.parentElement;
+      const ready = () => {
+        if (sketch.isConnected) page.classList.add('is-sketch-ready');
+      };
+      const unavailable = () => {
+        if (!sketch.isConnected) return;
+        drawing.setAttribute('aria-label', `Sketch unavailable: ${sceneDescriptions[selected-1]}`);
+        const message = document.createElement('span');
+        message.className = 'journey-sketch-fallback';
+        message.setAttribute('aria-hidden', 'true');
+        message.textContent = 'This sketch is unavailable.';
+        sketch.replaceWith(message);
+        page.classList.add('is-sketch-ready');
+      };
+      sketch.addEventListener('load', ready, {once:true});
+      sketch.addEventListener('error', unavailable, {once:true});
+      // Cached images can already be complete when the listeners are attached.
+      if (sketch.complete) {
+        if (sketch.naturalWidth) ready();
+        else unavailable();
+      }
+    }
     pageNumber.textContent=`${String(selected).padStart(2,'0')} / ${String(entries.length).padStart(2,'0')}`;
     previousPage.disabled=selected===1;
     nextPage.disabled=selected===entries.length;
