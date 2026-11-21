@@ -1,0 +1,376 @@
+/* Shared controls for every chapter of The Unfaithful Reflection. */
+:root {
+  --journey-control-radius: 11px;
+  --journey-control-bg: rgba(33, 31, 45, .94);
+  --journey-control-border: rgba(238, 203, 158, .46);
+  --journey-control-text: #fff4e4;
+  --journey-control-accent: #f2c890;
+  --journey-control-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Chapter-specific layout stays intact; controls share one shape and rhythm. */
+#game :is(.game-actions > button, .top-actions > button, .travel-controls > button,
+          .controls > button, .objective > button, .opening-action, .primary-action,
+          .card > button, .card > a.primary, .card .ending-actions > button,
+          .card .ending-actions > a, .ending-panel > button,
+          .overlay p > button, .ending-panel p > button, .wheel-cue) {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .42rem;
+  min-height: 42px;
+  padding: .57rem .85rem;
+  border: 1px solid var(--journey-button-border, var(--journey-control-border));
+  border-radius: var(--journey-control-radius);
+  background: var(--journey-control-bg);
+  color: var(--journey-control-text);
+  box-shadow: 0 4px 14px rgba(18, 15, 29, .18), inset 0 1px rgba(255, 245, 223, .045);
+  font: 650 .73rem/1.2 var(--journey-control-font);
+  letter-spacing: .005em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, color .18s ease;
+}
+
+#game :is(.game-actions > button, .top-actions > button, .travel-controls > button,
+          .controls > button, .objective > button, .opening-action, .primary-action,
+          .card > button, .card > a.primary, .card .ending-actions > button,
+          .card .ending-actions > a, .ending-panel > button,
+          .overlay p > button, .ending-panel p > button, .wheel-cue):hover {
+  background: #4b3b47;
+  border-color: var(--journey-control-accent);
+  color: #fffaf0;
+}
+#game :is(.game-actions > button, .top-actions > button, .travel-controls > button,
+          .controls > button, .objective > button, .opening-action, .primary-action,
+          .card > button, .card > a.primary, .card .ending-actions > button,
+          .card .ending-actions > a, .ending-panel > button,
+          .overlay p > button, .ending-panel p > button, .wheel-cue):focus-visible {
+  outline: 2px solid #ffe0a6;
+  outline-offset: 3px;
+  border-color: #ffe0a6;
+}
+#game :is(button, a)[hidden] { display: none !important; }
+#game :is(.game-actions > button, .top-actions > button, .travel-controls > button,
+          .controls > button):disabled { opacity: .52; cursor: default; }
+
+/* The same gold treatment identifies the main action in every chapter. */
+#game :is(.opening-action, .primary-action, .card > .primary,
+          .card .ending-actions > a.primary) {
+  background: linear-gradient(135deg, #f1d2a2, #e7b877);
+  border-color: #f6d9ae;
+  color: #3d303a;
+  min-height: 44px;
+  padding-inline: 1.15rem;
+}
+#game :is(.opening-action, .primary-action, .card > .primary,
+          .card .ending-actions > a.primary):hover {
+  background: #ffe0af;
+  color: #352932;
+}
+#game :is(.opening-action, .primary-action):hover { transform: none; }
+#game .card > .primary { margin-top: 15px; }
+#game .journey-journal-ending { margin: 14px 8px 0 0; }
+#game #ending .journey-journal-ending-new {
+  background: linear-gradient(135deg, #f1d2a2, #e7b877);
+  border-color: #f6d9ae;
+  color: #3d303a;
+}
+#game #ending .journey-journal-ending-new:hover { background: #ffe0af; color: #352932; }
+
+/* The three puzzle-four controls keep their useful matching-piece colours. */
+#game #turn-left { --journey-button-border: #9adbd6; }
+#game #turn-top { --journey-button-border: #ffe0a5; }
+#game #turn-right { --journey-button-border: #f3bdd3; }
+#game .controls > button[aria-pressed="true"] {
+  background: #664f50;
+  border-color: #ffe0a6;
+  box-shadow: 0 0 0 2px rgba(255, 218, 159, .2);
+}
+
+/* A disclosure should look and feel like its neighbouring settings buttons. */
+#game :is(.credits, .music-credits) {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: var(--journey-control-radius);
+  background: transparent;
+  color: var(--journey-control-text);
+  font: 650 .73rem/1.2 var(--journey-control-font);
+}
+#game :is(.credits, .music-credits) > summary {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  min-height: 42px;
+  padding: .57rem .85rem;
+  border: 1px solid var(--journey-control-border);
+  border-radius: var(--journey-control-radius);
+  background: var(--journey-control-bg);
+  box-shadow: 0 4px 14px rgba(18, 15, 29, .18), inset 0 1px rgba(255, 245, 223, .045);
+  color: var(--journey-control-text);
+  font: 650 .73rem/1.2 var(--journey-control-font);
+  list-style: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#game :is(.credits, .music-credits) > summary::-webkit-details-marker { display: none; }
+#game :is(.credits, .music-credits) > summary::before {
+  content: '▸'; color: var(--journey-control-accent); font-size: .68rem;
+}
+#game :is(.credits, .music-credits)[open] > summary::before { content: '▾'; }
+#game :is(.credits, .music-credits) > summary:hover { background: #4b3b47; border-color: var(--journey-control-accent); }
+#game :is(.credits, .music-credits) > summary:focus-visible { outline: 2px solid #ffe0a6; outline-offset: 3px; }
+#game :is(.credits, .music-credits) > p {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + .5rem);
+  bottom: auto;
+  right: 0;
+  width: min(255px, 75vw);
+  max-width: none;
+  margin: 0;
+  padding: .85rem;
+  border: 1px solid var(--journey-control-border);
+  border-radius: var(--journey-control-radius);
+  background: #272532;
+  color: #fff2e1;
+  box-shadow: 0 12px 30px #14111e66;
+  font: 400 .73rem/1.55 var(--journey-control-font);
+}
+#game .opening-audio .music-credits > p { top: auto; bottom: calc(100% + .5rem); }
+#game :is(.credits, .music-credits) a { color: #ffdfaa; }
+
+/* Count is part of the journal button, not a competing tab style. */
+#game .journey-journal-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.55rem;
+  min-height: 1.32rem;
+  padding: 0 .25rem;
+  border: 1px solid rgba(242, 200, 144, .4);
+  border-radius: 6px;
+  background: rgba(242, 200, 144, .13);
+  color: #ffe1b5;
+  font: 700 .62rem/1 var(--journey-control-font);
+}
+
+@media (max-width: 700px) {
+  #game :is(.game-actions > button, .top-actions > button, .travel-controls > button,
+            .controls > button, .objective > button, .opening-action, .primary-action,
+            .card > button, .card > a.primary, .card .ending-actions > button,
+            .card .ending-actions > a, .ending-panel > button, .overlay p > button, .ending-panel p > button, .wheel-cue,
+            .credits > summary, .music-credits > summary) {
+    min-height: 44px;
+    padding: .52rem .62rem;
+    font-size: .68rem;
+  }
+  #game .game-actions { flex-wrap: wrap; justify-content: flex-end; gap: .3rem; }
+  #game .top-actions { gap: .3rem; }
+  /* Keep expanded credits in the settings column, away from the objective
+     and its changing clues. Long credits remain readable in a scrollable card. */
+  #game .top-actions > .credits > p {
+    width: min(255px, calc(42vw - 26px));
+    max-height: min(260px, 38dvh);
+    overflow: auto;
+    overflow-wrap: anywhere;
+  }
+  #game .journey-journal-count { min-width: 1.35rem; min-height: 1.15rem; font-size: .57rem; }
+}
+
+/* On the hall's narrow layout the settings wrap into several rows. Keep the
+   reflected-arch panel below them rather than covering the journal or sound. */
+@media (min-width: 481px) and (max-width: 700px) {
+  #game #arch-panel { top: 160px; }
+}
+@media (max-width: 480px) {
+  #game #arch-panel { top: 218px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #game :is(button, a, summary) { transition-duration: 0s; }
+}
+
+/* Compact icon controls keep the scenery clear. The original button text stays
+   in the accessibility tree and continues to describe each current state. */
+#game :is(.game-actions, .top-actions) > :is(#sound, #pause, #restart, .journey-journal-toggle),
+#game :is(.game-actions, .top-actions) > :is(.credits, .music-credits) > summary {
+  width: 44px; min-width: 44px; height: 44px; min-height: 44px;
+  padding: 0; gap: 0; font-size: 0; line-height: 0;
+}
+#game :is(.game-actions, .top-actions) > :is(#sound, #pause, #restart, .journey-journal-toggle)::before,
+#game :is(.game-actions, .top-actions) > :is(.credits, .music-credits) > summary::before {
+  content: ''; display: block; width: 20px; height: 20px; flex: none;
+  background: var(--journey-control-text);
+  -webkit-mask: var(--control-icon) center / contain no-repeat;
+  mask: var(--control-icon) center / contain no-repeat;
+}
+#game :is(.game-actions, .top-actions) > .journey-journal-toggle { position: relative; }
+#game .journey-journal-toggle > span:first-child {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+}
+#game .journey-journal-toggle .journey-journal-count {
+  position: absolute; right: -4px; bottom: -5px; min-width: 1.35rem; min-height: 1rem;
+  padding: 0 .2rem; border-radius: 5px; background: #594557; font-size: .55rem; line-height: 1;
+}
+#game :is(.game-actions, .top-actions) > #sound[aria-pressed="true"] { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%209v6h4l5%204V5L8%209z%22%2F%3E%3Cpath%20d%3D%22M16%209a4%204%200%200%201%200%206M18.8%206.4a8%208%200%200%201%200%2011.2%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > #sound[aria-pressed="false"] { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%209v6h4l5%204V5L8%209z%22%2F%3E%3Cpath%20d%3D%22m17%209%204%206m0-6-4%206%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > #pause[aria-pressed="false"] { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M9%205v14M15%205v14%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > #pause[aria-pressed="true"] { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M8%205v14l11-7z%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > #restart { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%2011a8%208%200%201%201%202.4%206%22%2F%3E%3Cpath%20d%3D%22M4%205v6h6%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > .journey-journal-toggle { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M5%204h13a1%201%200%200%201%201%201v15H6a2%202%200%200%201-2-2V6a2%202%200%200%201%202-2z%22%2F%3E%3Cpath%20d%3D%22M4%2017a2%202%200%200%201%202-2h13M8%207h7M8%2010h7%22%2F%3E%3C%2Fsvg%3E'); }
+#game :is(.game-actions, .top-actions) > :is(.credits, .music-credits) > summary { --control-icon: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M10%2018V5l9-2v13%22%2F%3E%3Cellipse%20cx%3D%227.5%22%20cy%3D%2218%22%20rx%3D%222.5%22%20ry%3D%222%22%2F%3E%3Cellipse%20cx%3D%2216.5%22%20cy%3D%2216%22%20rx%3D%222.5%22%20ry%3D%222%22%2F%3E%3Cpath%20d%3D%22M10%209l9-2%22%2F%3E%3C%2Fsvg%3E'); }
+
+@media (max-width: 700px) {
+  #game :is(.game-actions, .top-actions) > :is(#sound, #pause, #restart, .journey-journal-toggle),
+  #game :is(.game-actions, .top-actions) > :is(.credits, .music-credits) > summary {
+    width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0; font-size: 0;
+  }
+  #game #arch-panel { top: 160px; }
+}
+#game :is(.game-actions, .top-actions) > :is(.credits, .music-credits)[open] > summary::before { content: ''; }
+
+/* The journal stays a compact button; journey position is now a proper
+   five-stage progress indicator, shared by every scene. */
+#game :is(.game-actions, .top-actions) {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  width: min(244px, 100%);
+}
+#game .journey-journal-toggle .journey-journal-count { display: none; }
+#game .journey-chapter-progress {
+  box-sizing: border-box;
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 244px;
+  padding: 7px 9px 8px;
+  border: 1px solid rgba(238, 203, 158, .34);
+  border-radius: 9px;
+  background: rgba(33, 31, 45, .9);
+  color: #fce8cb;
+  font: 700 .55rem/1.1 var(--journey-control-font);
+  letter-spacing: .075em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(18, 15, 29, .14);
+}
+#game .journey-chapter-progress-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: 6px;
+}
+#game .journey-chapter-progress-heading span:first-child { color: #e5c49c; }
+#game .journey-chapter-progress-track { display: flex; height: 6px; }
+#game .journey-chapter-progress-track > span {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(239, 216, 190, .2);
+}
+#game .journey-chapter-progress-track > :is(.is-complete, .is-current)::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #dca96b, #ffe0a4);
+}
+#game .journey-chapter-progress-track > .is-current::before {
+  width: var(--level-progress, 0%);
+  transition: width 650ms ease-out;
+}
+#game .journey-chapter-progress-track > .is-current::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--level-progress, 0%);
+  background: linear-gradient(90deg, transparent, #fff9e4, transparent);
+  opacity: .45;
+  animation: chapter-progress-glint 3.5s ease-in-out 800ms infinite;
+  transition: width 650ms ease-out;
+}
+@keyframes chapter-progress-glint { 0%, 55% { opacity: .1; } 75% { opacity: .6; } 90%, 100% { opacity: .1; } }
+@media (max-width: 700px) {
+  #game :is(.game-actions, .top-actions) { width: min(38vw, 250px); }
+  /* The courtyard's mobile HUD stacks its objective and controls. Let the
+     controls use the full row so they do not spill down over the guide. */
+  #game .game-actions { width: 100%; }
+  #game .journey-chapter-progress { padding: 6px 7px 7px; font-size: .49rem; letter-spacing: .045em; }
+  #game .journey-chapter-progress-heading { gap: .2rem; margin-bottom: 5px; }
+}
+@media (max-width: 480px) {
+  #game .journey-chapter-progress-heading { justify-content: flex-end; white-space: nowrap; }
+  #game .journey-chapter-progress-heading span:first-child { display: none; }
+}
+@media (max-width: 350px) {
+  /* Three rows of settings on very narrow screens leave the bar above the
+     arch close-up. Keep both readable and individually tappable. */
+  #game #arch-panel { top: 196px; }
+  #game:has(#arch-panel:not(.hidden)) .guide { max-width: calc(62vw - 24px) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #game .journey-chapter-progress-track > :is(.is-complete, .is-current)::before,
+  #game .journey-chapter-progress-track > .is-current::after { animation: none; transition: none; }
+  #game .journey-chapter-progress-track > .is-current::after { display: none; }
+}
+/* On phones these settings wrap into two columns: align the bar to the same
+   right and left edges instead of extending it into the puzzle area. */
+@media (max-width:700px){#game .top-actions > .journey-chapter-progress{width:94px;max-width:94px;flex-basis:94px}}
+
+/* Keep gold actions solid in every state so hovering cannot cause a gradient
+   to pop abruptly between frames. */
+#game :is(.primary-action, .card > a.primary, .card .ending-actions > a.primary),
+#game #ending .journey-journal-ending-new {
+  background: #f1d2a2;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+/* Make selectable controls unmistakable without shifting their geometry. */
+@media (hover: hover) {
+  #game :is(button:not(:disabled), summary):hover {
+    background-color: #72545a;
+    border-color: #ffe3aa;
+    color: #fffaf1;
+    box-shadow: 0 0 0 2px #f5ca8977, 0 0 18px #f1bd6c66;
+  }
+  /* Opening actions have their own chapter styles, so use a stronger but
+     still solid colour here rather than swapping in a gradient. */
+  html #game :is(#intro, #story) .opening-action:hover,
+  html #game #opening .card > button.primary:hover,
+  html #game :is(a.primary, .primary-action):hover,
+  html #game #ending .journey-journal-ending-new:hover {
+    background: #fff1d3;
+    border-color: #fff8e7;
+    color: #302332;
+    box-shadow: 0 0 0 2px #f8d690ad, 0 0 20px #f6c57999;
+    transform: none;
+  }
+}
+#game :is(button:not(:disabled), a.primary, summary):focus-visible,
+html #game :is(#intro, #story) .opening-action:focus-visible,
+html #game #opening .card > button.primary:focus-visible {
+  outline: 3px solid #ffe8b4;
+  outline-offset: 3px;
+  border-color: #fff0cb;
+  box-shadow: 0 0 0 2px #2f283b, 0 0 17px #f3c47eaa;
+}
+#game :is(button:not(:disabled), a.primary, summary):active {
+  border-color: #fff1d0;
+  box-shadow: inset 0 0 0 2px #f6d39499, 0 0 12px #f1bd6c77;
+}
+/* Retain a clear persistent state on selectable puzzle choices. */
+#game .controls > button[aria-pressed="true"] {
+  background: #795c5b;
+  border-color: #ffe4ab;
+  box-shadow: inset 0 0 0 1px #ffe4ab99, 0 0 12px #f3c37a77;
+}
+@media (prefers-reduced-motion: reduce) {
+  #game :is(button, a, summary) { transition-duration: 0s; }
+}

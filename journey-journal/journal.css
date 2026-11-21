@@ -1,0 +1,226 @@
+/* A quiet book of discoveries: the controls outside the dialog use the
+   shared game controls; everything below is scoped to the journal itself. */
+.journey-journal-ending{display:inline-flex;margin:14px 8px 0 0}
+.journey-journal-ending-new{animation:journal-reward-glow 2.8s ease-in-out 3}
+dialog.journey-journal{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(880px,calc(100vw - 36px));max-width:none;max-height:calc(100dvh - 36px);padding:0;overflow:auto;border:1px solid #d6b37b99;border-radius:18px;background:#1e2833;color:#f8e9d1;box-shadow:0 28px 100px #0a0e19c9,0 0 0 6px #192128aa;font-family:Georgia,serif;z-index:1000}
+dialog.journey-journal[open]{animation:journal-arrive .35s cubic-bezier(.2,.8,.2,1) both}
+dialog.journey-journal::backdrop{background:rgba(12,16,25,.82);backdrop-filter:blur(6px)}
+.journey-journal-inner{position:relative;padding:clamp(20px,3vw,34px);background:radial-gradient(ellipse at 88% 0%,#54645a33,transparent 42%),linear-gradient(145deg,#29343d,#19232e 68%)}
+.journey-journal-inner::before{content:'';position:absolute;inset:9px;border:1px solid #e5c79425;border-radius:11px;pointer-events:none}
+.journey-journal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:0 0 19px;border-bottom:1px solid #e1c39435}
+.journey-journal-kicker,.journey-journal-index-title,.journey-journal-art-caption,.journey-journal-page-meta,.journey-journal-chapter-button small{font:700 .61rem/1.45 system-ui,-apple-system,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+.journey-journal-kicker{color:#e5be82}
+.journey-journal-header h2{margin:7px 0 5px;font:normal clamp(2rem,4vw,3rem)/1.04 Georgia,serif;letter-spacing:-.035em;color:#fff1db}
+.journey-journal-subtitle{margin:0;color:#cbbfba;font:normal .8rem/1.5 system-ui,sans-serif}
+.journey-journal-close{display:grid!important;place-items:center!important;flex:none;width:44px;height:44px;padding:0;border:1px solid #d8bf9e80;border-radius:10px;background:#26313b;color:#fff0d7;font:normal 1.7rem/1 system-ui,sans-serif;cursor:pointer}
+.journey-journal-close:hover,.journey-journal-close:focus-visible,.journey-journal-chapter-button:focus-visible,.journey-journal-pager button:focus-visible{outline:2px solid #f2cb88;outline-offset:3px}
+.journey-journal-layout{display:grid;grid-template-columns:minmax(165px,205px) minmax(0,1fr);gap:24px;margin-top:22px}
+.journey-journal-index{min-width:0;padding-top:4px}
+.journey-journal-index-title{display:flex;justify-content:space-between;gap:12px;color:#d9b98e}
+.journey-journal-index-title strong{color:#fbe0ac;letter-spacing:.08em}
+.journey-journal-progress-track{height:3px;margin:10px 0 7px;background:#ffffff24;border-radius:10px;overflow:hidden}
+.journey-journal-progress-track span{display:block;height:100%;background:linear-gradient(90deg,#c48c53,#f5d69d);border-radius:inherit;transition:width .6s ease}
+.journey-journal-progress{margin:0 0 15px;color:#b9b6b0;font:normal .72rem/1.4 system-ui,sans-serif}
+.journey-journal-chapters{display:grid;gap:6px}
+.journey-journal-chapter-button{display:flex;align-items:center;gap:10px;width:100%;min-height:51px;text-align:left;padding:8px 9px;border:1px solid transparent;border-radius:10px;background:transparent;color:#d6c9b7;cursor:pointer;font:inherit;transition:background .2s,border-color .2s,transform .2s}
+.journey-journal-chapter-button:hover{background:#ffffff0d;transform:none}
+.journey-journal-chapter-button.is-active{background:#d0a96d1d;border-color:#d5b17b70;color:#fff1d8}
+.journey-journal-chapter-symbol{display:grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid #ddba7a63;border-radius:8px;color:#eac58c;font-size:16px}
+.journey-journal-chapter-numeral{display:none}
+.journey-journal-chapter-button.is-locked .journey-journal-chapter-symbol{border-color:#a9a2a044;color:#b8aa9d}
+.journey-journal-chapter-name{display:flex;flex-direction:column;gap:2px;min-width:0;font:normal .75rem/1.2 system-ui,sans-serif}
+.journey-journal-chapter-name small{color:#bda98e;font-size:.55rem;letter-spacing:.1em}
+.journey-journal-index-note{margin:17px 4px 0;color:#aaaba9;font:italic .8rem/1.5 Georgia,serif}
+.journey-journal-page{min-width:0;overflow:hidden;border:1px solid #ddc09b;border-radius:12px;background:#f5ead7;color:#43363b;box-shadow:0 12px 28px #050b124d;animation:journal-page-in .38s ease both}
+.journey-journal-art{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;overflow:hidden;background:radial-gradient(ellipse at 50% 75%,#718f824d,transparent 46%),linear-gradient(155deg,#203641,#355650 62%,#21363c);border-bottom:1px solid #beaa8d}
+.journey-journal-art::before{content:'';position:absolute;inset:14px;border:1px solid #d7c2953b;border-radius:7px;pointer-events:none}
+.journey-journal-art::after{content:'✦  ·  ✧  ·  ✦';position:absolute;left:0;right:0;top:21px;text-align:center;color:#e6cb9477;font-size:11px;letter-spacing:2.5em;transform:translateX(1.2em);pointer-events:none}
+.journey-journal-art-ornament{position:absolute;top:20px;left:25px;color:#f0dba077;font-size:22px}
+.journey-journal-drawing{position:relative;display:grid;place-items:center;margin:6px 0 30px;padding:5px;border:1px solid transparent;border-radius:12px;background:transparent;color:inherit;animation:journal-float 5s ease-in-out infinite}
+.journey-journal-sparkles{position:absolute;inset:16px 0 auto;color:#ffe0a2;letter-spacing:.45em;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.journey-journal-sparkles{animation:journal-sparkle 3.8s ease-in-out infinite}
+.journey-journal-page.is-new .journey-journal-art{animation:journal-memory-glow 1.4s ease-out both}
+.journey-journal-drawing svg{display:block;width:min(260px,80%);height:110px;overflow:visible;filter:drop-shadow(0 2px 8px #f4d49822)}
+.journey-journal-drawing .sketch-water{fill:none;stroke:#add1c3;stroke-width:2;stroke-linecap:round}
+.journey-journal-drawing .sketch-ink,.journey-journal-drawing .sketch-stone{fill:none;stroke:#f5e5c9;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.journey-journal-drawing .sketch-ring,.journey-journal-drawing .sketch-gold-line{fill:none;stroke:#f5cd86;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.journey-journal-drawing .sketch-gold,.journey-journal-drawing .sketch-dot{fill:#f8d78e}.journey-journal-drawing .sketch-globe{fill:#f1bb64;stroke:#ffdf9e;stroke-width:1.5}
+.journey-journal-art-caption{position:absolute;bottom:16px;left:12px;right:12px;text-align:center;color:#edd8b2;font-size:.55rem;letter-spacing:.11em}
+.journey-journal-art-caption span{padding:0 5px;color:#f7d99b}
+.journey-journal-art-locked{min-height:180px;background:radial-gradient(ellipse at 50% 70%,#768b7c35,transparent 50%),linear-gradient(145deg,#283640,#34434a)}
+.journey-journal-lock-art{color:#e4c58c;font:normal 4rem/1 Georgia,serif;opacity:.75}
+.journey-journal-copy{padding:19px 24px 22px;background:linear-gradient(135deg,#fff9ed,#f4e7d2)}
+.journey-journal-page-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#886551;font-size:.58rem;letter-spacing:.12em}
+.journey-journal-page-meta i{font-style:normal;color:#c09051;padding:0 3px}
+.journey-journal-new{padding:4px 7px;border:1px solid #c59c65;border-radius:6px;background:#f5dbab;color:#795027;white-space:nowrap;animation:journal-reveal 1s ease both}
+.journey-journal-page-subtitle{margin:13px 0 3px;color:#a07859;font:italic .84rem/1.3 Georgia,serif}
+.journey-journal-copy h3{margin:0;color:#493c41;font:normal clamp(1.55rem,3vw,2rem)/1.1 Georgia,serif;letter-spacing:-.02em}
+.journey-journal-divider{display:flex;align-items:center;gap:8px;margin:11px 0;color:#bf945d;font-size:10px}
+.journey-journal-divider::after{content:'';height:1px;flex:1;background:#d8c3a6}
+.journey-journal-copy p:not(.journey-journal-page-subtitle){margin:9px 0 0;color:#54484a;font:normal .82rem/1.5 system-ui,-apple-system,sans-serif}
+.journey-journal-copy strong{display:block;margin-bottom:2px;font:700 .62rem/1.4 system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#936d54}
+.journey-journal-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
+.journey-journal-footer p{margin:0;color:#c2b6ab;font:italic .78rem/1.4 Georgia,serif}
+.journey-journal-pager{display:flex;align-items:center;gap:9px;white-space:nowrap;color:#d6bd9d;font:700 .65rem system-ui,sans-serif;letter-spacing:.08em}
+.journey-journal-pager button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #d0b48d6b;border-radius:10px;background:#263440;color:#f5e0c0;font:normal 1rem system-ui,sans-serif;cursor:pointer}
+.journey-journal-pager button:disabled{opacity:.35;cursor:default}
+@keyframes journal-arrive{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes journal-page-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes journal-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes journal-reveal{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes journal-reward-glow{0%,100%{box-shadow:0 0 0 0 #f2cf7d00}50%{box-shadow:0 0 14px 3px #f2cf7d55}}
+@keyframes journal-sparkle{0%,100%{transform:scale(.92);opacity:.45}50%{transform:scale(1.08);opacity:1}}
+@keyframes journal-memory-glow{0%{filter:brightness(.65)}45%{filter:brightness(1.4)}100%{filter:brightness(1)}}
+@media(max-width:700px){
+  dialog.journey-journal{width:calc(100vw - 20px);max-height:calc(100dvh - 20px);border-radius:14px}
+  .journey-journal-inner{padding:20px}
+  .journey-journal-header{padding-bottom:14px}
+  .journey-journal-header h2{font-size:1.9rem}
+  .journey-journal-subtitle{font-size:.73rem}
+  .journey-journal-layout{grid-template-columns:1fr;gap:14px;margin-top:15px}
+  .journey-journal-index{padding-top:0}
+  .journey-journal-progress{margin:0 0 10px}
+  .journey-journal-chapters{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .journey-journal-chapter-button{justify-content:center;min-height:44px;padding:5px}
+  .journey-journal-chapter-button:hover{transform:none}
+  .journey-journal-chapter-symbol{width:27px;height:27px}
+  .journey-journal-chapter-numeral{display:inline;color:#f2d8af;font:700 .69rem system-ui,sans-serif;letter-spacing:.04em}
+  .journey-journal-chapter-name{display:none}
+  .journey-journal-index-note{display:none}
+  .journey-journal-art,.journey-journal-art-locked{min-height:150px}
+  .journey-journal-drawing svg{height:85px}
+  .journey-journal-copy{padding:16px 18px 19px}
+  .journey-journal-footer p{max-width:60%;font-size:.72rem}
+}
+@media(max-width:400px){
+  .journey-journal-footer{align-items:stretch;flex-direction:column;gap:12px}
+  .journey-journal-footer p{max-width:none}
+  .journey-journal-pager{justify-content:flex-end}
+}
+@media(prefers-reduced-motion:reduce){.journey-journal-ending-new,dialog.journey-journal[open],.journey-journal-page,.journey-journal-drawing,.journey-journal-new,.journey-journal-sparkles,.journey-journal-page.is-new .journey-journal-art{animation:none!important}.journey-journal-progress-track span,.journey-journal-chapter-button{transition:none!important}}
+
+/* The newly discovered page leads directly onward without another crowded end screen. */
+.journey-reward-next{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:12px 14px;border:1px solid #d9b98266;border-radius:10px;background:#dfbf8420}
+.journey-reward-next span{color:#f3d6a8;font:700 .7rem/1.4 system-ui,sans-serif;letter-spacing:.03em}
+.journey-reward-continue{flex:none;min-height:42px;padding:.65rem .9rem;border:1px solid #f5d8a4;border-radius:10px;background:#efd09f;color:#352d32;font:700 .73rem/1.2 system-ui,sans-serif;cursor:pointer}
+.journey-reward-continue:hover{background:#ffe3b6}.journey-reward-continue:focus-visible{outline:2px solid #fff0cd;outline-offset:3px}
+@media(max-width:400px){.journey-reward-next{align-items:stretch;flex-direction:column}.journey-reward-continue{width:100%}}
+
+/* The objects earned so far gather on every chapter's ending card. */
+.journey-keepsakes{display:flex;justify-content:center;align-items:flex-start;gap:clamp(4px,1.8vw,18px);margin:14px auto 12px;max-width:420px}
+.journey-keepsake{position:relative;display:flex;flex:0 1 78px;min-width:0;flex-direction:column;align-items:center;gap:3px;color:#e8d1aa;font:700 .54rem/1.25 system-ui,-apple-system,sans-serif;letter-spacing:.04em;text-align:center}
+.journey-keepsake svg{display:block;width:clamp(47px,7vw,68px);height:auto;overflow:visible;filter:drop-shadow(0 2px 6px #f6d38c44)}
+.journey-keepsake.is-new{color:#ffe3a3}
+.journey-keepsake.is-new svg{filter:drop-shadow(0 0 12px #ffd78d88)}
+.keepsake-halo{fill:#f2d19018;stroke:#edcf925a;stroke-width:1}
+.keepsake-fill{fill:#f6d38f;stroke:#ffedbb;stroke-width:1.3;stroke-linejoin:round}
+.keepsake-line{fill:none;stroke:#f6db9e;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.keepsake-light{fill:none;stroke:#fff1c4;stroke-width:1.4;stroke-linecap:round;opacity:.85}
+#ending:not(.hidden):not(.is-hidden) .journey-keepsake{animation:keepsake-float 3.8s ease-in-out infinite;animation-delay:calc(var(--keepsake-order) * .18s)}
+#ending:not(.hidden):not(.is-hidden) .journey-keepsake svg{animation:keepsake-arrive .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--keepsake-order) * .18s)}
+#ending:not(.hidden):not(.is-hidden) .journey-keepsake.is-new svg{animation:keepsake-arrive .8s cubic-bezier(.2,.8,.2,1) both,keepsake-glow 2.6s 1s ease-in-out infinite;animation-delay:calc(var(--keepsake-order) * .18s),1s}
+@keyframes keepsake-arrive{from{opacity:0;transform:translateY(9px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes keepsake-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes keepsake-glow{0%,100%{filter:drop-shadow(0 0 5px #ffd78d77)}50%{filter:drop-shadow(0 0 15px #ffdfa9ee)}}
+
+/* A sketch is never completely still: water glimmers, and the object itself
+   comes alive while keeping the chapter's original illustration intact. */
+.journey-journal-art:not(.journey-journal-art-locked)::after{animation:journal-stars 4s ease-in-out infinite}
+.journey-journal-drawing .sketch-water{animation:journal-water 5s ease-in-out infinite}
+.journey-journal-art[data-art="1"] .sketch-gold,
+.journey-journal-art[data-art="2"] .sketch-globe,
+.journey-journal-art[data-art="3"] .sketch-gold,
+.journey-journal-art[data-art="4"] .sketch-gold-line,
+.journey-journal-art[data-art="5"] .sketch-gold{animation:journal-object-light 3.5s ease-in-out infinite}
+.journey-journal-art[data-art="2"] .sketch-gold-line{animation:journal-orbit-light 4s ease-in-out infinite alternate}
+.journey-journal-page.is-new .journey-journal-drawing svg{animation:journal-sketch-reveal 1.5s ease-out both}
+@keyframes journal-stars{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes journal-water{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes journal-object-light{0%,100%{opacity:.72;filter:drop-shadow(0 0 1px #f6d389)}50%{opacity:1;filter:drop-shadow(0 0 5px #f6d389)}}
+@keyframes journal-orbit-light{from{opacity:.55}to{opacity:1}}
+@keyframes journal-sketch-reveal{from{opacity:0;filter:brightness(1.8) drop-shadow(0 0 12px #f4d498)}to{opacity:1;filter:drop-shadow(0 2px 8px #f4d49822)}}
+@media(max-width:400px){.journey-keepsakes{margin:10px auto 8px;gap:3px}.journey-keepsake{font-size:.48rem}.journey-keepsake svg{width:45px}}
+@media(prefers-reduced-motion:reduce){#ending .journey-keepsake,#ending .journey-keepsake svg,.journey-journal-art::after,.journey-journal-drawing .sketch-water,.journey-journal-art .sketch-gold,.journey-journal-art .sketch-globe,.journey-journal-art .sketch-gold-line,.journey-journal-page.is-new .journey-journal-drawing svg{animation:none!important}}
+
+/* Keep the reward's headline, discoveries and description on one visual axis. */
+#ending .card,#ending.ending-panel{text-align:center}
+#ending h2{max-width:15ch;margin:clamp(12px,2.5vh,22px) auto;color:#fff0db;font-size:clamp(2.05rem,4.2vw,3.1rem);line-height:1.08;text-wrap:balance}
+#ending .story-copy,#ending .card > p{max-width:34ch;margin:18px auto 0;text-align:center;text-wrap:balance;line-height:1.55}
+#ending .journey-keepsakes{max-width:440px;gap:clamp(12px,3vw,26px);margin:clamp(18px,3vh,26px) auto}
+#ending .journey-keepsake{flex-basis:86px;gap:7px}
+#ending .journey-keepsake svg{width:clamp(52px,7vw,74px)}
+/* The outlines are drawn first; colour blooms inside each recovered object. */
+#ending:not(.hidden):not(.is-hidden) .journey-keepsake :is(.keepsake-line,.keepsake-halo,.keepsake-light){stroke-dasharray:180;stroke-dashoffset:180;animation:keepsake-draw 1.25s ease-out both;animation-delay:calc(.15s + var(--keepsake-order) * .24s)}
+#ending:not(.hidden):not(.is-hidden) .journey-keepsake .keepsake-fill{animation:keepsake-bloom 1s ease-out both;animation-delay:calc(.4s + var(--keepsake-order) * .24s)}
+@keyframes keepsake-draw{to{stroke-dashoffset:0}}
+@keyframes keepsake-bloom{from{opacity:0;filter:brightness(1.7)}to{opacity:1;filter:brightness(1)}}
+@media(max-width:700px){.journey-journal-chapters{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}.journey-journal-chapter-button{padding:4px 2px;gap:3px}.journey-journal-chapter-symbol{width:23px;height:23px}.journey-journal-chapter-numeral{font-size:.62rem}#ending h2{font-size:clamp(1.9rem,8vw,2.5rem)}#ending .journey-keepsakes{gap:8px}#ending .journey-keepsake svg{width:clamp(44px,13vw,60px)}}
+@media(prefers-reduced-motion:reduce){#ending .journey-keepsake :is(.keepsake-line,.keepsake-halo,.keepsake-light,.keepsake-fill){animation:none!important;stroke-dashoffset:0!important}}
+
+/* Keep the label and badge aligned on narrow pages without splitting a
+   chapter name awkwardly; all journal copy uses a consistent left edge. */
+.journey-journal-copy{text-align:left}
+.journey-journal-copy h3,.journey-journal-copy p{text-align:left}
+.journey-journal-page-meta>span:first-child{white-space:nowrap}
+@media(max-width:400px){.journey-journal-page-meta{flex-wrap:wrap;justify-content:flex-start}}
+
+/* Journal actions use the same steady hover and focus language as the game. */
+@media (hover:hover) {
+  dialog.journey-journal :is(.journey-journal-close,.journey-journal-pager button:not(:disabled)):hover {
+    background: #71565a;
+    border-color: #ffe3aa;
+    color: #fffaf1;
+    box-shadow: 0 0 0 2px #f5ca8977, 0 0 16px #f1bd6c66;
+  }
+  dialog.journey-journal .journey-journal-chapter-button:hover {
+    transform: none;
+    background: #e7be8750;
+    border-color: #ffe3aacc;
+    color: #fff9eb;
+    box-shadow: inset 0 0 0 1px #ffe3aa55, 0 0 12px #f1bd6c33;
+  }
+}
+dialog.journey-journal :is(.journey-journal-close,.journey-journal-chapter-button,.journey-journal-pager button):focus-visible {
+  outline: 3px solid #ffe8b4;
+  outline-offset: 3px;
+  border-color: #fff0cb;
+  box-shadow: 0 0 0 2px #26313b, 0 0 16px #f3c47eaa;
+}
+dialog.journey-journal :is(.journey-journal-close,.journey-journal-chapter-button,.journey-journal-pager button:not(:disabled)):active {
+  border-color: #fff1d0;
+  box-shadow: inset 0 0 0 2px #f6d39499, 0 0 12px #f1bd6c77;
+}
+
+/* Memories draw themselves when opened. Subtle moving light then keeps each
+   sketch alive without making the player discover a hidden tap target. */
+dialog.journey-journal[open] .journey-journal-drawing :is(.sketch-ink,.sketch-stone){animation:journal-ink-draw 1.7s cubic-bezier(.2,.65,.2,1) backwards}
+dialog.journey-journal[open] .journey-journal-drawing .sketch-stone{animation-delay:.15s}
+dialog.journey-journal[open] .journey-journal-drawing svg{animation:journal-sketch-reveal 1.4s ease-out both}
+.journey-journal-motes{position:absolute;inset:0;pointer-events:none}
+.journey-journal-motes i{position:absolute;display:block;width:3px;height:3px;border-radius:50%;background:#f8dc9e;box-shadow:0 0 8px 2px #f9dd9c88;opacity:.28;animation:journal-mote 4.8s ease-in-out infinite}
+.journey-journal-motes i:nth-child(1){left:10%;top:45%;animation-delay:-1.2s}
+.journey-journal-motes i:nth-child(2){left:23%;top:17%;animation-delay:-2.7s}
+.journey-journal-motes i:nth-child(3){right:13%;top:33%;animation-delay:-3.6s}
+.journey-journal-motes i:nth-child(4){right:28%;top:66%;animation-delay:-.4s}
+/* Each memory has its own motion: a turning star, tracing orbits, a living
+   flame, and the arch/figures glowing in the water. */
+.journey-journal-art[data-art="1"] .sketch-gold{transform-box:fill-box;transform-origin:center;animation:journal-object-light 3.5s ease-in-out infinite,journal-star-turn 16s ease-in-out infinite}
+.journey-journal-art[data-art="1"] .sketch-ring{animation:journal-ring 4s ease-in-out infinite}
+.journey-journal-art[data-art="2"] .sketch-gold-line{stroke-dasharray:4 2;animation:journal-orbit-drift 7s linear infinite,journal-orbit-light 4s ease-in-out infinite alternate}
+.journey-journal-art[data-art="2"] .sketch-gold-line:last-child{animation-direction:reverse,alternate}
+.journey-journal-art[data-art="3"] .sketch-gold{transform-box:fill-box;transform-origin:center bottom;animation:journal-flame 2.4s ease-in-out infinite}
+.journey-journal-art[data-art="4"] .sketch-gold-line{animation:journal-object-light 3.5s ease-in-out infinite,journal-reflection 5s ease-in-out infinite}
+.journey-journal-art[data-art="5"] .sketch-dot{animation:journal-object-light 3.4s ease-in-out infinite}
+@keyframes journal-ink-draw{from{stroke-dasharray:1;stroke-dashoffset:1;opacity:.15}to{stroke-dasharray:1;stroke-dashoffset:0;opacity:1}}
+@keyframes journal-mote{0%,100%{opacity:.15;transform:translateY(0) scale(.7)}50%{opacity:.85;transform:translateY(-6px) scale(1.2)}}
+@keyframes journal-star-turn{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes journal-ring{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes journal-orbit-drift{from{stroke-dashoffset:0}to{stroke-dashoffset:24}}
+@keyframes journal-flame{0%,100%{transform:scale(1,.95);filter:drop-shadow(0 0 2px #f6d389)}45%{transform:scale(.92,1.06);filter:drop-shadow(0 0 6px #f8c967)}75%{transform:scale(1.05,1);filter:drop-shadow(0 0 4px #f8c967)}}
+@keyframes journal-reflection{0%,100%{opacity:.65}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  dialog.journey-journal[open] .journey-journal-drawing svg,
+  dialog.journey-journal[open] .journey-journal-drawing :is(.sketch-ink,.sketch-stone,.sketch-gold,.sketch-gold-line,.sketch-ring,.sketch-globe,.sketch-dot),
+  .journey-journal-motes i,.journey-journal-sparkles{animation:none!important;stroke-dasharray:none!important;stroke-dashoffset:0!important;opacity:1}
+  .journey-journal-motes i,.journey-journal-sparkles{opacity:.35}
+}

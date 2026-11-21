@@ -1,0 +1,60 @@
+/* The matching chapter card carries across navigation and fades on arrival. */
+.journey-chapter-transition{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;color:#f6dfb8;text-align:center;padding:24px;box-sizing:border-box}
+.journey-chapter-transition::before,.journey-chapter-transition::after{content:'';position:absolute;inset:8%;border:1px solid #dcb9824d;pointer-events:none}
+.journey-chapter-transition::after{inset:calc(8% + 8px);border-color:#dcb98225}
+.journey-chapter-transition-content{position:relative;max-width:34rem;animation:chapter-transition-rise .8s ease both}
+/* Do not show the next chapter's letters through the fading journal. */
+.journey-chapter-transition.is-waiting .journey-chapter-transition-content{opacity:0;animation:none}
+.journey-chapter-transition-eyebrow{margin:0 0 1.5rem;font:700 .68rem/1.4 system-ui,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:#e3c79a}
+.journey-chapter-transition-symbol{display:block;color:#f6d899;font-size:2rem;text-shadow:0 0 30px #f5cc82aa;animation:chapter-transition-shine 2s ease-in-out infinite}
+.journey-chapter-transition h2{margin:.75rem 0 .65rem;font:400 clamp(2rem,6vw,3.5rem)/1.1 Georgia,serif;letter-spacing:-.025em}
+.journey-chapter-transition p:last-child{margin:0;font:400 1rem/1.55 Georgia,serif;color:#e5ded5}
+.journey-transition-ambience{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.journey-transition-ambience span{position:absolute;left:50%;top:50%;width:min(70vmin,560px);aspect-ratio:1;border:1px solid #f1d39d16;border-radius:50%;transform:translate(-50%,-50%) scale(.65);animation:chapter-ring 3.4s ease-out infinite}
+.journey-transition-ambience span:nth-last-child(1){animation-delay:1.7s}
+.journey-transition-ambience i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fbe2aa;box-shadow:0 0 12px 2px #ffe5ad99;animation:chapter-mote 3s ease-in-out infinite}
+.journey-transition-ambience i:nth-child(1){left:18%;top:27%;animation-delay:-1.4s}.journey-transition-ambience i:nth-child(2){left:79%;top:23%;animation-delay:-.4s}.journey-transition-ambience i:nth-child(3){left:24%;top:75%;animation-delay:-2.1s}.journey-transition-ambience i:nth-child(4){left:73%;top:70%;animation-delay:-1s}.journey-transition-ambience i:nth-child(5){left:37%;top:18%;animation-delay:-2.5s}.journey-transition-ambience i:nth-child(6){left:61%;top:82%;animation-delay:-1.8s}
+@keyframes chapter-transition-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes chapter-transition-shine{0%,100%{transform:scale(.94);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+@keyframes chapter-ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}35%{opacity:.8}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
+@keyframes chapter-mote{0%,100%{opacity:.3;transform:translateY(0) scale(.75)}50%{opacity:1;transform:translateY(-10px) scale(1)}}
+@media(prefers-reduced-motion:reduce){.journey-chapter-transition-content,.journey-chapter-transition-symbol,.journey-transition-ambience :is(span,i){animation:none}}
+
+/* The next chapter is already behind the open journal while it fades, so the
+   player never sees the old ending flash back between the two pages. */
+dialog.journey-journal[open].journey-transition-leaving {
+  animation: journey-journal-dissolve .8s ease-in-out both;
+  pointer-events: none;
+}
+dialog.journey-journal[open].journey-transition-leaving::backdrop {
+  animation: journey-backdrop-dissolve .8s ease-in-out both;
+}
+@keyframes journey-journal-dissolve { from { opacity: 1; } to { opacity: 0; } }
+@keyframes journey-backdrop-dissolve {
+  from { background: rgba(12,16,25,.82); backdrop-filter: blur(6px); }
+  to { background: rgba(12,16,25,0); backdrop-filter: blur(0); }
+}
+@media(prefers-reduced-motion:reduce) {
+  dialog.journey-journal[open].journey-transition-leaving,
+  dialog.journey-journal[open].journey-transition-leaving::backdrop { animation: none; }
+}
+
+/* The reward dissolves into the journal instead of an instant dark backdrop. */
+dialog.journey-journal[open].journey-transition-arriving {
+  animation: journey-journal-appear .8s ease-out both;
+}
+dialog.journey-journal[open].journey-transition-arriving::backdrop {
+  animation: journey-backdrop-appear .8s ease-out both;
+}
+@keyframes journey-journal-appear {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes journey-backdrop-appear {
+  from { background: rgba(12,16,25,0); backdrop-filter: blur(0); }
+  to { background: rgba(12,16,25,.82); backdrop-filter: blur(6px); }
+}
+@media(prefers-reduced-motion:reduce) {
+  dialog.journey-journal[open].journey-transition-arriving,
+  dialog.journey-journal[open].journey-transition-arriving::backdrop { animation: none; }
+}

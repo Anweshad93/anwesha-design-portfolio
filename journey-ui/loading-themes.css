@@ -1,0 +1,73 @@
+/* Each chapter carries its own color from the transition into its first scene. */
+html[data-journey-chapter="1"] { --chapter-load-color:#765968; --chapter-load-halo:#e7bea8; }
+html[data-journey-chapter="2"] { --chapter-load-color:#252b45; --chapter-load-halo:#b2c8d8; }
+html[data-journey-chapter="3"] { --chapter-load-color:#102f37; --chapter-load-halo:#8cd5c3; }
+html[data-journey-chapter="4"] { --chapter-load-color:#53363f; --chapter-load-halo:#edc19f; }
+html[data-journey-chapter], html[data-journey-chapter] body { background:var(--chapter-load-color); }
+
+/* A small illuminated compass suggests the traveller's journey while the
+   actual scene is prepared. Preserve the existing loading/error messages. */
+html[data-journey-chapter] #loading:not(.hidden) {
+  position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+  padding:6.5rem 1.25rem 1rem;background:var(--chapter-load-color);color:#fff1da;
+  text-align:center;font:400 clamp(.95rem,2vw,1.12rem)/1.45 Georgia,serif;
+}
+html[data-journey-chapter] #loading:not(.hidden)::before {
+  content:'✦';position:absolute;left:50%;top:calc(50% - 24px);transform:translate(-50%,-50%);
+  color:#ffe3a8;font:normal 2rem/1 Georgia,serif;text-shadow:0 0 20px var(--chapter-load-halo);
+  animation:chapter-loading-light 2.5s ease-in-out infinite;
+}
+html[data-journey-chapter] #loading:not(.hidden)::after {
+  content:'';position:absolute;left:50%;top:calc(50% - 24px);width:76px;height:76px;
+  border:1px solid color-mix(in srgb,var(--chapter-load-halo) 65%,transparent);
+  border-radius:50%;box-shadow:0 0 0 9px color-mix(in srgb,var(--chapter-load-halo) 10%,transparent),0 0 45px color-mix(in srgb,var(--chapter-load-halo) 12%,transparent);
+  transform:translate(-50%,-50%) scaleX(1.3);pointer-events:none;
+}
+/* The first chapter already has a title and a story screen. Keep its
+   loading layer underneath both instead of presenting a third screen. */
+html[data-journey-chapter="1"] #loading:not(.hidden) { z-index: 5; }
+html[data-journey-chapter] #loading .loading-mark { display:none; }
+html[data-journey-chapter] #loading p { margin:0; font:inherit; letter-spacing:.02em; }
+@keyframes chapter-loading-light { 0%,100%{opacity:.6;filter:brightness(.9)} 50%{opacity:1;filter:brightness(1.25)} }
+
+/* Keep opening copy readable without a single word stranded on its last line. */
+#game #opening .card > p { text-wrap: pretty; }
+
+/* The opening cards retain a glimpse of the world, tinted to each chapter. */
+html[data-journey-chapter="2"] #opening.overlay { background:linear-gradient(135deg,rgba(23,29,53,.94),rgba(42,50,78,.76)); }
+html[data-journey-chapter="2"] #opening .card { background:rgba(29,34,55,.96); border-color:#b9cfe366; }
+html[data-journey-chapter="3"] #opening.overlay { background:linear-gradient(135deg,rgba(9,40,47,.94),rgba(27,73,71,.76)); }
+html[data-journey-chapter="3"] #opening .card { background:rgba(13,48,53,.96); border-color:#a5d6c666; }
+html[data-journey-chapter="4"] #opening.overlay { background:linear-gradient(135deg,rgba(67,35,46,.94),rgba(133,72,65,.76)); }
+html[data-journey-chapter="4"] #opening .card { background:rgba(76,39,47,.96); border-color:#efc6a266; }
+html[data-journey-chapter] #opening .card { box-shadow:0 24px 90px #11142375,0 0 35px color-mix(in srgb,var(--chapter-load-halo) 8%,transparent); }
+@media(prefers-reduced-motion:reduce){html[data-journey-chapter] #loading::before{animation:none}}
+
+/* A solid base and a matching solid hover state avoid the sudden gradient
+   swap; only keyboard focus adds an outline and no state changes geometry. */
+#game #opening .card > button.primary {
+  background: #f1d2a2;
+  transform: none;
+  outline: none;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+#game #opening .card > button.primary:hover {
+  background: #ffe0af;
+  transform: none;
+  outline: none;
+}
+#game #opening .card > button.primary:focus-visible {
+  outline: 2px solid #fff2d4;
+  outline-offset: 3px;
+}
+#game #opening.overlay {
+  opacity: 1;
+  transition: opacity .28s ease;
+}
+#game #opening.overlay.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+@media(prefers-reduced-motion:reduce){
+  #game #opening .card > button.primary,#game #opening.overlay{transition:none}
+}

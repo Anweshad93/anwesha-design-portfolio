@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-journey-chapter="2">
+<head><style>html,body{background:#252b45}</style>
+  <meta charset="utf-8"><script src="../journey-ui/arrival-transition.js?v=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#25263b">
+  <title>The Unfaithful Reflection · Moonlit Garden</title>
+  <link rel="stylesheet" href="style.css?v=guide-attached-1">
+  <link rel="stylesheet" href="../journey-ui/controls.css?v=15">
+<link rel="stylesheet" href="../journey-ui/loading-themes.css?v=opening-copy-1"><link rel="stylesheet" href="../journey-ui/guide-typography.css?v=2"></head>
+<body>
+<main id="game" aria-label="The Unfaithful Reflection, puzzle two">
+  <div id="scene" aria-hidden="true"></div>
+  <header class="hud">
+    <div class="objective" aria-live="polite">
+      <div class="objective-heading"><span class="eyebrow">II <span aria-hidden="true">✦</span> The Moonlit Garden</span><span class="world">The reflecting pool</span></div>
+      <p id="objective">Find a way across the garden.</p>
+      <p id="status">Find the first stone.</p>
+      <button type="button" id="describe-clue">Describe the reflections</button>
+      <p id="clue" class="clue"></p>
+    </div>
+    <div class="top-actions" aria-label="Game settings">
+      <button id="sound" title="Sound" type="button" aria-pressed="true">Sound on</button>
+      <button id="pause" title="Pause or resume" type="button" aria-pressed="false">Pause</button>
+      <button id="restart" title="Restart puzzle" type="button">Restart puzzle</button>
+      <details class="credits"><summary title="Music credits">Music credits</summary><p>“Desert City” by Kevin MacLeod, <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100564" target="_blank" rel="noopener noreferrer">incompetech.com</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></details><div class="journey-chapter-progress" role="progressbar" aria-label="Chapter progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Chapter 2 of 5, 0% through this chapter"><div class="journey-chapter-progress-heading"><span>Journey</span><span>2 / 5</span></div><div class="journey-chapter-progress-track" aria-hidden="true"><span class="is-current"></span></div></div>
+    </div>
+  </header>
+  <aside class="guide hidden" role="status" aria-live="polite"><span>✦ The Guide</span><p id="guide"></p></aside>
+  <nav id="controls" class="controls" aria-label="Garden actions">
+    <button type="button" id="first" hidden>Step onto the first stone</button>
+    <button type="button" id="choose-crescent" aria-pressed="false" hidden>Select crescent stone ☾</button>
+    <button type="button" id="choose-star" aria-pressed="false" hidden>Select star stone ✦</button>
+    <button type="button" id="choose-sun" aria-pressed="false" hidden>Select sun stone ☼</button>
+    <button type="button" id="choose-diamond" aria-pressed="false" hidden>Select diamond stone ◆</button>
+    <button type="button" id="choose-triangle" aria-pressed="false" hidden>Select triangle stone ▲</button>
+    <button type="button" id="slot-0" hidden>Place in near reflection</button>
+    <button type="button" id="slot-1" hidden>Place in far reflection</button>
+    <button type="button" id="cross" hidden>Cross the path</button>
+    <button type="button" id="collect" hidden>Touch the tree</button>
+    <button type="button" id="take-key" hidden>Take the glowing key</button>
+    <button type="button" id="door" hidden>Enter the magical door</button>
+  </nav>
+  <section id="opening" class="overlay" aria-labelledby="opening-title"><div class="card">
+    <span class="eyebrow">Puzzle II <span aria-hidden="true">✦</span> The Moonlit Garden</span>
+    <h1 id="opening-title">The water keeps the way.</h1>
+    <p>The traveller enters a garden where stepping stones lie scattered across a moonlit pool. Long ago, the inhabitants left a path in the&nbsp;water.</p>
+    <p>Step onto the first stone. Press and hold a scattered tile, then drag it onto the glowing outline in the water with the same symbol. Match both outlines to build a path.</p>
+    <button id="start" type="button" class="primary">Enter the garden <span aria-hidden="true">↗</span></button>
+  </div></section>
+  <section id="pause-panel" class="overlay hidden" aria-labelledby="pause-title"><div class="card compact"><span class="eyebrow">The garden is waiting</span><h2 id="pause-title">Journey paused.</h2><button id="resume" type="button" class="primary">Continue</button></div></section>
+  <section id="ending" class="overlay hidden" aria-labelledby="ending-title"><div class="card"><span class="eyebrow">A memory found</span><h2 id="ending-title">The garden remembers.</h2><p>The garden’s light leads to the water chamber. The journey continues shortly.</p><a class="primary continue-link" href="../puzzle-three-chamber/?v=refinement-10">Continue to the water chamber ↗</a></div></section>
+  <div id="loading" role="status">The garden is taking shape…</div>
+</main>
+<script>
+  // Explain startup problems instead of leaving a silent, unresponsive screen.
+  (() => {
+    const loading = document.getElementById('loading');
+    if (location.protocol === 'file:') {
+      loading.textContent = 'Please open the game using Play Game.command in the portfolio folder.';
+      return;
+    }
+    const fail = () => {
+      if (!loading.classList.contains('hidden')) {
+        loading.textContent = 'The garden could not start. Please refresh the page and try again.';
+      }
+    };
+    window.addEventListener('error', fail, true);
+    window.addEventListener('unhandledrejection', fail);
+    setTimeout(() => {
+      if (!loading.classList.contains('hidden') && loading.textContent === 'The garden is taking shape…') {
+        loading.textContent = 'The garden is still loading. Please wait a moment.';
+      }
+    }, 12000);
+  })();
+</script>
+<script type="module" src="game.js?v=journal-sketch-1"></script>
+</body>
+</html>
