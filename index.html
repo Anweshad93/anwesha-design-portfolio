@@ -1,9 +1,65 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Anwesha Das explores visual expression, worldbuilding, and playful interaction through AI for interdisciplinary design."><title>Anwesha Das — AI for Interdisciplinary Design Portfolio</title><link rel="stylesheet" href="style.css?v=20261108-playable"></head>
+<html lang="en"><head><meta charset="UTF-8"><script>
+if (!location.hash && 'scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+  window.addEventListener('pageshow', () => {
+    if (!location.hash) window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+  });
+}
+</script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Anwesha Das explores visual expression, worldbuilding, and playful interaction through AI for interdisciplinary design."><title>Anwesha Das — AI for Interdisciplinary Design Portfolio</title><link rel="stylesheet" href="style.css?v=20261108-playable"><link rel="stylesheet" href="bridge.css?v=sound-control-fix"><link rel="stylesheet" href="folio.css?v=rounded-projects"><link rel="stylesheet" href="site-experience.css?v=intro-counter"><link rel="stylesheet" href="project-carousel.css?v=deck-reveal"><link rel="stylesheet" href="contact-section.css?v=4"></head>
 <body><header class="wrap"><a href="#home" class="logo" aria-label="Anwesha Das home">a<span>d</span><i>✳</i></a><nav aria-label="Main navigation"><a class="active" href="#home">Home</a><a href="#projects">Projects</a><button id="aboutOpen">About</button></nav></header>
-<main id="home"><section class="hero wrap"><div class="eyebrow"><span class="dot"></span> A STUDY IN ART, INTELLIGENCE & IMAGINATION</div><div class="hero-layout"><h1><span>AI</span> for<br>Interdisciplinary<br><span>Design</span> Portfolio<span class="period">.</span></h1><div class="hero-sculpture" aria-hidden="true"><svg id="thread-emblem" viewBox="0 0 300 350" aria-hidden="true"><defs><linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3a0ac"/><stop offset=".48" stop-color="#b84456"/><stop offset="1" stop-color="#4d1b2a"/></linearGradient></defs><g id="emblem-threads" fill="none" stroke="url(#ribbon)" stroke-width=".9"></g></svg></div></div><div class="hero-bottom"><p class="name">ANWESHA DAS</p><p class="intro">Content producer &amp; visual designer.</p><a href="#playground" class="down" aria-label="Explore the interactive canvas">↓</a></div></section>
-<section class="play-section wrap" id="playground"><div class="section-label"><span>01 / A SPACE TO PLAY</span><span>YOU ARE PART OF THE DESIGN</span></div><div class="playbox"><div class="dot-field" aria-hidden="true"></div><div class="canvas-top"><span class="play-instructions">Click or tap to add a shape. Watch the others transform.</span><button id="reset" aria-label="Reset interactive artwork">Reset ↺</button></div><svg id="art" viewBox="0 0 1200 460" preserveAspectRatio="none" role="button" tabindex="0" aria-label="Interactive drawing area. Click or tap to add a shape and transform the others. Press Enter to add a shape."></svg><div class="canvas-bottom"><span><span class="live-dot"></span> Make your mark.</span><span id="count" aria-live="polite">06 SHAPES / ENDLESS POSSIBILITIES</span></div></div></section>
-<section id="projects" class="projects wrap"><div class="section-label"><span>02 / SELECTED EXPLORATIONS</span><span>2026</span></div><div class="project-heading"><h2>Different mediums.<br><span>One curious mind.</span></h2><p>Exploring AI across graphic design,<br>spatial design, and interactive worlds.</p></div><div class="project-grid"><a class="project" href="album.html"><div class="thumb album"><img class="project-cover" src="assets/training-season.png" alt="Training Season album cover by Anwesha Das" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="asset-pending" hidden>Training Season<br><small>Poster selected · image transfer pending</small></div><span class="project-arrow">↗</span></div><div class="project-meta"><div><small>01 / ALBUM COVER DESIGN</small><h3>Training Season</h3></div><span>Album cover</span></div></a><a class="project" href="environment.html"><div class="thumb environment"><img class="studio-thumb" src="assets/future-space-studio.png" alt="Design Future Studio: a warmly lit living space with integrated assistive technology"><span class="project-arrow">↗</span></div><div class="project-meta"><div><small>02 / SPATIAL DESIGN</small><h3>Design Future Studio</h3></div><span>3D environment</span></div></a><div class="project-game-card"><a class="project" href="game.html" aria-label="Explore The Unfaithful Reflection game proposal"><div class="thumb game"><img class="game-thumb" src="assets/TheUnfaithfulReflection.png" alt="A luminous fantasy environment of bridges, water, reflected architecture, and a lone traveler"><span class="project-arrow">↗</span></div><div class="project-meta"><div><small>03 / GAME DEVELOPMENT</small><h3>The Unfaithful Reflection</h3></div><span>Game proposal</span></div></a><a class="project-play" href="game-next-phase/">Play the journey · Chapters I–V <span aria-hidden="true">↗</span></a></div></div></section></main>
+<main id="home"><section class="bridge-intro" aria-labelledby="bridge-title">
+  <div class="bridge-copy">
+    <p class="bridge-course">AI for Interdisciplinary Design</p>
+    <h1 id="bridge-title"><span class="name-first">Anwesha</span> <span class="name-last">Das</span></h1>
+    <p class="bridge-role">Content Producer &amp; Visual Designer.</p>
+    <p class="availability"><span class="availability-dot" aria-hidden="true"></span>Available for work</p>
+  </div>
+  <a class="scroll-cue" href="#projects"><span>Scroll to projects</span><span class="scroll-arrow" aria-hidden="true">↓</span></a>
+  <figure class="letter-curtain">
+    <div class="thread-stage"><canvas tabindex="0" role="button" aria-label="Brush across the letters or drag one string. Use the left and right arrows to choose a string and Space to pluck it."></canvas></div>
+    <figcaption><span>Brush the curtain or pull a letter.</span> <button id="chimes" type="button" aria-pressed="false" hidden>Enable sound</button></figcaption>
+  </figure>
+</section>
+<section id="projects" class="featured-work" aria-labelledby="projects-title">
+  <div class="wrap">
+    <div class="work-introduction"><p class="work-label">Selected work · 2026</p><h2 id="projects-title" aria-label="Stories made to be experienced."><span class="work-line" aria-hidden="true"><span class="work-word">Stories</span> <span class="work-word">made</span> <span class="work-word">to</span></span><span class="work-line" aria-hidden="true"><span class="work-word">be</span> <span class="work-word">experienced.</span></span></h2><p class="work-deck">Visual stories and immersive worlds brought to life through imagination and play.</p></div>
+    <div class="featured-grid" aria-label="Selected projects">
+      <article class="featured-card">
+        <a class="featured-image album-image" href="album.html" aria-label="View Training Season"><img src="assets/training-season-redesign.png" alt="Training Season album cover"><span class="view-case" aria-hidden="true">View project ↗</span></a>
+        <div class="featured-caption"><h3><a href="album.html">Training Season</a></h3><p>An album cover exploring self-belief and the anticipation of love.</p></div>
+      </article>
+      <article class="featured-card">
+        <a class="featured-image" href="environment.html" aria-label="View Design Future Studio"><img src="assets/future-space-studio.png" alt="Design Future Studio interior"><span class="view-case" aria-hidden="true">View project ↗</span></a>
+        <div class="featured-caption"><h3><a href="environment.html">Design Future Studio</a></h3><p>A future home imagined through warm materials and technology woven into everyday life.</p></div>
+      </article>
+      <article class="featured-card featured-wide">
+        <div class="game-card-media"><a class="featured-image" href="game.html" aria-label="View The Unfaithful Reflection"><img src="assets/TheUnfaithfulReflection.png" alt="A traveller facing a broken bridge above still water"><span class="view-case" aria-hidden="true">View project ↗</span></a><a class="featured-play" href="game-next-phase/">▶ Play the game</a></div>
+        <div class="featured-caption"><h3><a href="game.html">The Unfaithful Reflection</a></h3><p>A reflection reveals another way forward in a five-chapter puzzle journey.</p></div>
+      </article>
+    </div>
+    <div class="carousel-controls" hidden>
+      <button type="button" class="carousel-previous" aria-label="Previous project">←</button>
+      <div class="carousel-status" aria-live="polite" aria-atomic="true"><span class="carousel-count"></span><span class="carousel-project-name"></span></div>
+      <button type="button" class="carousel-next" aria-label="Next project">→</button>
+    </div>
+    <div class="carousel-extras" hidden><span>Drag to explore</span><button type="button" class="carousel-autoplay">Pause rotation</button></div>
+  </div>
+</section>
+<section class="contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap contact-content">
+    <div class="contact-heading">
+      <p class="contact-eyebrow">LET’S CONNECT</p>
+      <h2 id="contact-title">Have a story <span>in mind?</span></h2>
+    </div>
+    <div class="contact-invitation">
+      <p>From the first spark to the final frame, I’d love to help bring it to life. Have a project, an idea, or an opportunity to share?</p>
+      <a class="contact-link" href="mailto:anweshad@asu.edu"><span>Let’s make something</span><span aria-hidden="true">↗</span></a>
+      <p class="contact-email">anweshad@asu.edu</p>
+      <p class="contact-availability"><span aria-hidden="true"></span> Available for work and collaborations</p>
+    </div>
+  </div>
+</section></main>
 <footer class="wrap"><div>© 2026 Anwesha Das</div><div class="socials" aria-label="Social profile"><a href="https://github.com/Anweshad93" target="_blank" rel="noreferrer" aria-label="Anwesha Das on GitHub">GitHub ↗</a></div></footer>
-<dialog id="about"><button class="close" aria-label="Close about">×</button><span class="eyebrow">A LITTLE ABOUT ME</span><h2>Hi, I'm Anwesha.</h2><p>I'm a content producer and visual designer studying Media Arts and Sciences at Arizona State University. This portfolio explores how AI can become part of a creative process—from album artwork to three-dimensional environments.</p><p>Click, explore, and leave your own mark.</p></dialog><script src="app.js"></script><script src="navigation.js"></script></body></html>
+<dialog id="about" aria-labelledby="about-title"><button class="close" aria-label="Close about">×</button><span class="eyebrow">About the designer</span><h2 id="about-title">Anwesha Das</h2><p>I’m a content producer and visual designer studying Media Arts and Sciences at Arizona State University.</p><p>My background is in music videos and television promos. Here, I’m exploring how a story changes when someone can step inside it, move through it, or play with it.</p><a class="folio-link" href="index.html#projects" onclick="this.closest('dialog').close()">View selected work ↘</a></dialog><script src="bridge.js?v=gesture-audio" defer></script><script src="navigation.js"></script><script src="featured-work.js?v=deck-reveal" defer></script><script src="project-carousel.js?v=6" defer></script><script src="site-experience.js?v=intro-counter" defer></script></body></html>
 

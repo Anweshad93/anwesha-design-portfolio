@@ -1,0 +1,32 @@
+:root {--portfolio-section-gap:clamp(64px,7vw,110px)}
+.featured-work {padding-top:var(--portfolio-section-gap);padding-bottom:var(--portfolio-section-gap)}
+.contact-section {background:#f7f3ef;color:#292422;padding:0 0 var(--portfolio-section-gap)}
+.contact-content {border-top:1px solid #d6c9c0;padding-top:var(--portfolio-section-gap);display:flex;flex-direction:column;align-items:center;gap:clamp(28px,3vw,46px);text-align:center}
+.contact-eyebrow {margin:0 0 clamp(24px,3vw,42px);font-size:11px;font-weight:700;letter-spacing:.16em;color:#a14839}
+.contact-eyebrow span {display:inline-block;margin:0 5px}
+.contact-heading h2 {max-width:10ch;margin:0 auto;font-size:clamp(48px,7vw,104px);line-height:1.05;letter-spacing:-.055em;font-weight:600}
+.contact-heading h2 span {display:block;color:#a14839}
+.contact-invitation {width:100%;display:flex;flex-direction:column;align-items:center;padding-bottom:5px}
+.contact-invitation>p:first-child {max-width:50ch;color:#665a54;font-size:clamp(16px,1.35vw,19px);line-height:1.7;margin:0 0 30px}
+.contact-link {width:min(100%,310px);display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 0;border-bottom:1px solid #9f6d60;color:#773c32;font-size:15px;font-weight:700;transition:color .25s,border-color .25s}
+.contact-link span:last-child {font-size:22px;transition:transform .25s}
+.contact-link:hover,.contact-link:focus-visible {color:#a14839;border-color:#a14839}
+.contact-link:hover span:last-child,.contact-link:focus-visible span:last-child {transform:translate(4px,-4px)}
+.contact-email {margin:12px 0 25px;color:#77675f;font-size:13px}
+.contact-availability {display:flex;align-items:center;justify-content:center;gap:9px;margin:0;color:#44584a;font-size:12px;font-weight:600}
+.contact-availability span {width:8px;height:8px;border-radius:50%;background:#36945b;flex:none}
+@media(prefers-reduced-motion:no-preference) {
+ .contact-heading.reveal-ready .contact-eyebrow {opacity:0;transform:translateY(14px);transition:opacity .65s ease,transform .65s cubic-bezier(.22,.7,.2,1)}
+ .contact-heading.reveal-ready h2 {opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px);transition:opacity .8s ease .12s,clip-path 1s cubic-bezier(.22,.7,.2,1) .12s,transform 1s cubic-bezier(.22,.7,.2,1) .12s}
+ .contact-invitation.reveal-ready {opacity:0;transform:translateY(24px);transition:opacity .8s ease .1s,transform .8s cubic-bezier(.22,.7,.2,1) .1s}
+ .contact-heading.reveal-ready.is-visible .contact-eyebrow,.contact-heading.reveal-ready.is-visible h2,.contact-invitation.reveal-ready.is-visible {opacity:1;transform:none}
+ .contact-heading.reveal-ready.is-visible h2 {clip-path:inset(0)}
+ .contact-availability span {animation:contact-pulse 2s ease-in-out infinite}
+ @keyframes contact-pulse {0%,100% {opacity:1} 50% {opacity:.45}}
+}
+@media(max-width:700px) {
+ .contact-content {gap:28px}
+ .contact-heading h2 {font-size:clamp(43px,10vw,68px)}
+ .contact-invitation>p:first-child {margin-bottom:20px}
+}
+@media(prefers-reduced-motion:reduce) {.contact-link,.contact-link span:last-child {transition:none}}

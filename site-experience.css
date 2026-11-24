@@ -1,0 +1,81 @@
+/* Shared portfolio palette */
+body {--bg:#f7f3ef;--text:#292422;--line:#d6c9c0;--muted:#685b55;background:var(--bg);color:var(--text)}
+body:not(.game-page) > header nav a,body:not(.game-page) > header nav button,
+.game-page > header nav a,.game-page > header nav button {color:#685b55}
+body > header nav :is(a,button):is(.active,:hover,:focus-visible) {color:#a14839}
+.detail .back,.eyebrow {color:#9a4537}
+.detail p,.studio-story p,.album-story p,.studio-video p {color:#504641}
+.case-title h1 {color:#292422}
+.detail h1 span {color:#a14839}
+.detail .comparison-section,.studio-video {border-color:#d6c9c0}
+.compare-help,.compare-status,.video-note {color:#665a54}
+.next-work {background:#e9dcd3}
+footer {color:#675b55}
+
+.game-page {background:#f7f3ef;color:#292422}
+.game-page .proposal-intro h1 {color:#292422}
+.game-page .proposal-intro h1 span,.game-page .proposal-meta>span,.game-page .proposal-section h4 {color:#a14839}
+.game-page .proposal-deck,.game-page .proposal-section p,.game-page .proposal-section li,
+.game-page .proposal-figure figcaption,.game-page .proposal-nav nav a,.game-page .proposal-nav>p {color:#514640}
+.game-page .proposal-section,.game-page .proposal-meta,.game-page .proposal-nav>p {border-color:#d6c9c0}
+.game-page .proposal-nav nav a:hover,.game-page .proposal-nav nav a.section-active {color:#9a4537}
+.game-page .proposal-figure figcaption a,.game-page .proposal-section a,.game-page .back {color:#9a4537}
+.game-page .proposal-cover img {background:#e5d8cf}
+.game-page .proposal-section blockquote {color:#514640;background:#eee6df;border-color:#a14839}
+.game-page .proposal-section .exchange {color:#392e2a;background:#eee6df;border-color:#a14839}
+
+/* Give project media the same soft corners throughout the case studies. */
+.detail :is(img,video),.proposal :is(img,video) {border-radius:16px}
+.detail :is(.album-hero,.studio-hero,.comparison) {border-radius:16px;overflow:hidden}
+.detail .comparison .compare-image {border-radius:0}
+
+/* Each next-project link pairs its title with a preview of the destination. */
+.next-work {grid-template-columns:minmax(0,1fr) clamp(120px,19vw,220px);align-items:center;gap:clamp(20px,4vw,56px);border-radius:14px}
+.next-work-copy {display:grid;gap:14px;min-width:0}
+.next-work img {display:block;width:100%;aspect-ratio:4 / 3;object-fit:cover;border-radius:14px;transition:transform .35s ease}
+.next-work img.next-work-album {object-fit:contain;background:#201b1e}
+.next-work:hover img,.next-work:focus-visible img {transform:scale(1.025)}
+@media(max-width:650px) {
+ .next-work {grid-template-columns:minmax(0,1fr) minmax(82px,30%);gap:16px}
+ .next-work span {font-size:clamp(22px,5vw,32px);line-height:1.1}
+ .next-work-copy {gap:9px}
+}
+@media(prefers-reduced-motion:reduce) {.next-work img {transition:none}}
+
+.featured-play,.proposal-play {
+ display:inline-flex;align-items:center;gap:12px;background:#973f32;color:#fff;
+ border:1px solid #973f32;border-radius:999px;padding:13px 21px;font-weight:700;
+ text-decoration:none;transition:background .25s,transform .25s;
+}
+.featured-play:hover,.proposal-play:hover {background:#6d2c23;transform:translateY(-2px)}
+.game-page .proposal-play {color:#fff}
+.portfolio-particles {position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.cursor-follow {position:fixed;left:0;top:0;width:25px;height:25px;border:1px solid #a14839;border-radius:50%;pointer-events:none;z-index:100;opacity:0;transform:translate(-50%,-50%);transition:opacity .2s,background .2s,width .2s,height .2s}
+.cursor-follow.is-visible {opacity:.72}
+.cursor-follow.is-link {width:38px;height:38px;background:#a1483922}
+/* The logo begins as an outline, then fills as it moves to the header. */
+.intro-screen {position:fixed;inset:0;z-index:100;overflow:hidden;background:#f7f3ef;pointer-events:none;animation:intro-screen-exit .8s ease 2.3s forwards}
+.intro-lines {position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 58px,#bc8e812e 59px,transparent 60px);opacity:0;animation:intro-lines-in 2.8s ease both}
+.intro-progress {position:absolute;left:50%;top:calc(50% + 78px);width:min(180px,38vw);height:2px;background:#d9c6bf;transform:translateX(-50%);overflow:hidden}
+.intro-progress span {display:block;width:100%;height:100%;background:#a14839;transform:scaleX(0);transform-origin:left;animation:intro-progress-fill 2.3s cubic-bezier(.3,.05,.18,1) forwards}
+.intro-progress-count {position:absolute;top:calc(50% + 91px);left:50%;transform:translateX(-50%);color:#8b5145;font-size:11px;font-weight:600;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+@keyframes intro-progress-fill {to {transform:scaleX(1)}}
+.intro-logo-reveal {transform-origin:center;color:transparent;-webkit-text-stroke:0 var(--intro-logo-ink);animation:intro-stroke-first 1.75s ease .05s both}
+.intro-logo-reveal .intro-logo-second {color:transparent;-webkit-text-stroke:0 var(--intro-logo-accent);animation:intro-stroke-second 1.75s ease .2s both}
+.intro-logo-reveal i {color:var(--intro-logo-ink);animation:intro-star .5s ease .9s both}
+@keyframes intro-stroke-first {0% {opacity:0;-webkit-text-stroke-width:0;color:transparent} 30% {opacity:1;-webkit-text-stroke-width:.8px;color:transparent} 58% {-webkit-text-stroke-width:.8px;color:transparent} 100% {opacity:1;-webkit-text-stroke-width:0;color:var(--intro-logo-ink)}}
+@keyframes intro-stroke-second {0% {opacity:0;-webkit-text-stroke-width:0;color:transparent} 30% {opacity:1;-webkit-text-stroke-width:.8px;color:transparent} 58% {-webkit-text-stroke-width:.8px;color:transparent} 100% {opacity:1;-webkit-text-stroke-width:0;color:var(--intro-logo-accent)}}
+@keyframes intro-star {from {opacity:0;transform:scale(.4) rotate(-70deg)} to {opacity:1;transform:scale(1) rotate(0)}}
+@keyframes intro-lines-in {0%,100% {opacity:0;transform:scaleX(.85)} 30%,65% {opacity:1;transform:scaleX(1)}}
+@keyframes intro-screen-exit {to {opacity:0}}
+body.intro-playing > header {z-index:102}
+body.intro-playing > header nav {opacity:0;animation:intro-nav .55s ease 2.4s forwards}
+@keyframes intro-nav {to {opacity:1}}
+@media (prefers-reduced-motion: no-preference) {
+  body.has-intro .bridge-copy #bridge-title .name-first {animation-delay: 3s}
+  body.has-intro .bridge-copy #bridge-title .name-last {animation-delay: 3.25s}
+  body.has-intro .bridge-course {animation-delay: 3.5s}
+  body.has-intro .bridge-role {animation-delay: 3.75s}
+  body.has-intro .availability {animation-delay: 4s}
+}
+@media (prefers-reduced-motion:reduce) {.cursor-follow,.portfolio-particles {display:none}}

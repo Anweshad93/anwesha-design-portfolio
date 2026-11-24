@@ -1,0 +1,76 @@
+/* A three-project carousel keeps a real link on the active project. */
+#projects .featured-grid.carousel-enhanced {display:grid;grid-template-columns:minmax(0,1fr);gap:0;perspective:1400px;perspective-origin:50% 38%;isolation:isolate;align-items:start;touch-action:pan-y}
+@media(prefers-reduced-motion:no-preference) {
+ #projects .featured-grid.carousel-enhanced.carousel-awaiting {opacity:0;transform:translateY(45px) scale(.96);transition:opacity .95s ease,transform 1.1s cubic-bezier(.22,.7,.2,1)}
+ #projects .featured-grid.carousel-enhanced.carousel-awaiting.carousel-entered {opacity:1;transform:none}
+}
+#projects .carousel-enhanced .featured-card {grid-area:1 / 1;width:min(55%,650px);max-width:none;margin:0;justify-self:center;transform-style:preserve-3d;transform-origin:center 35%;transition:transform .85s cubic-bezier(.22,.7,.18,1),opacity .65s ease,filter .65s ease;will-change:transform;opacity:1}
+#projects .carousel-enhanced .featured-card[data-position="center"] {transform:translateX(var(--drag-offset,0px)) translateZ(0) rotateY(0);z-index:3;filter:none}
+#projects .carousel-enhanced .featured-card[data-position="left"] {transform:translateX(calc(-52% + var(--drag-offset,0px))) translateZ(-130px) rotateY(28deg) scale(.82);z-index:1;filter:saturate(.78);cursor:pointer}
+#projects .carousel-enhanced .featured-card[data-position="right"] {transform:translateX(calc(52% + var(--drag-offset,0px))) translateZ(-130px) rotateY(-28deg) scale(.82);z-index:1;filter:saturate(.78);cursor:pointer}
+#projects .carousel-enhanced:is(.is-dragging,.is-rotating) .featured-card {transition:none;user-select:none}
+#projects .carousel-enhanced:is(.is-dragging,.is-rotating) .featured-card .featured-caption {opacity:0;transition:opacity .18s ease}
+#projects .carousel-enhanced .featured-image {cursor:grab;user-select:none;-webkit-user-drag:none}
+#projects .carousel-enhanced.is-dragging .featured-image {cursor:grabbing}
+#projects .carousel-enhanced .featured-image img {user-select:none;-webkit-user-drag:none}
+#projects .carousel-enhanced .featured-card .featured-image {aspect-ratio:1.22;clip-path:none;border-radius:14px}
+#projects .carousel-enhanced .featured-card .featured-image img {transform:none}
+#projects .carousel-enhanced .featured-card .featured-image:hover img {transform:scale(1.035)}
+#projects .carousel-enhanced .featured-card .featured-caption {grid-template-columns:1fr;gap:10px;opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+#projects .carousel-enhanced .featured-card[data-position="center"] .featured-caption {opacity:1;transform:none;transition:opacity .5s ease .2s,transform .5s ease .2s;pointer-events:auto}
+#projects .carousel-enhanced .featured-card .featured-caption h3 {font-size:clamp(24px,2.4vw,34px)}
+#projects .carousel-enhanced .featured-card .featured-caption p {max-width:55ch}
+#projects .carousel-enhanced .featured-card:not([data-position="center"]) .view-case {opacity:0}
+/* Balanced image actions for the game, each with its own destination. */
+.game-card-media {position:relative}
+#projects .game-card-media .view-case,
+#projects .game-card-media .featured-play {position:absolute;bottom:16px;display:inline-flex;align-items:center;justify-content:center;width:min(42%,150px);height:42px;margin:0;padding:0 8px;border-radius:100px;font-size:clamp(10px,2vw,12px);line-height:1;white-space:nowrap;opacity:1;transform:none}
+#projects .game-card-media .view-case {right:16px;background:#f8f3ee;color:#292422}
+#projects .game-card-media .featured-play {left:16px;z-index:2;background:#973f32;border:1px solid #973f32;color:#fff;font-weight:700;text-decoration:none;transition:background .25s}
+#projects .game-card-media .featured-play:hover,#projects .game-card-media .featured-play:focus-visible {background:#6d2c23}
+#projects .carousel-enhanced .featured-card:not([data-position="center"]) .game-card-media :is(.view-case,.featured-play) {opacity:0;pointer-events:none}
+.carousel-controls[hidden] {display:none}
+.carousel-controls {display:flex;align-items:center;justify-content:center;gap:24px;margin-top:24px}
+.carousel-controls button {display:grid;place-items:center;width:46px;height:46px;flex:none;border:1px solid #bb9e94;border-radius:50%;background:transparent;color:#773c32;font-size:23px;line-height:1;transition:background .2s,color .2s,transform .2s}
+.carousel-controls button:hover,.carousel-controls button:focus-visible {background:#973f32;color:#fff;transform:scale(1.06)}
+.carousel-status {display:flex;flex-direction:column;align-items:center;gap:5px;min-width:180px;text-align:center}
+.carousel-count {font-size:11px;letter-spacing:.14em;color:#a14839;font-weight:700}
+.carousel-project-name {font-size:12px;color:#665a54}
+.carousel-extras[hidden] {display:none}
+.carousel-extras {display:flex;align-items:center;justify-content:center;gap:14px;margin-top:18px;color:#77675f;font-size:11px}
+.carousel-autoplay {background:none;border:0;border-bottom:1px solid #c9aea4;padding:4px 0;color:#773c32;font-size:11px}
+.carousel-autoplay:hover {color:#a14839;border-color:#a14839}
+@media(max-width:700px) {
+ #projects .carousel-enhanced .featured-card {width:76%}
+ #projects .carousel-enhanced .featured-card[data-position="left"] {transform:translateX(calc(-32% + var(--drag-offset,0px))) translateZ(-100px) rotateY(23deg) scale(.74)}
+ #projects .carousel-enhanced .featured-card[data-position="right"] {transform:translateX(calc(32% + var(--drag-offset,0px))) translateZ(-100px) rotateY(-23deg) scale(.74)}
+ #projects .carousel-enhanced .featured-card .featured-caption {padding-top:17px}
+ #projects .game-card-media .view-case {right:12px;bottom:12px}
+ #projects .game-card-media .featured-play {left:12px;bottom:12px}
+ .carousel-controls {gap:12px;margin-top:16px}
+ .carousel-status {min-width:0;max-width:190px;flex:1}
+}
+@media(prefers-reduced-motion:reduce) {
+ #projects .carousel-enhanced .featured-card,#projects .carousel-enhanced .featured-card .featured-caption,.carousel-controls button {transition:none}
+}
+
+/* Stagger the words as the project story enters the viewport. */
+.work-introduction h2 .work-line {display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.work-introduction h2 .work-word {display:inline-block;white-space:nowrap}
+.work-introduction h2 .work-line:first-child .work-word {color:#292422}
+.work-introduction h2 .work-line:last-child .work-word {color:#a14839}
+.work-introduction .work-deck {max-width:none;margin:clamp(24px,3vw,38px) auto 0;color:#665a54;text-transform:none;letter-spacing:normal;font-size:clamp(12px,1.25vw,18px);font-weight:400;line-height:1.65;white-space:nowrap}
+@media(max-width:480px) {.work-introduction .work-deck {font-size:clamp(7px,2.5vw,12px)}}
+@media (prefers-reduced-motion:no-preference) {
+ .work-introduction.reveal-ready h2 .work-line {opacity:1;transform:none;transition:none}
+ .work-introduction.reveal-ready h2 .work-word {opacity:0;transform:translateY(110%) rotate(2deg);transition:opacity .7s ease,transform 1s cubic-bezier(.22,.7,.2,1)}
+ .work-introduction.reveal-ready.is-visible h2 .work-word {opacity:1;transform:translateY(0) rotate(0)}
+ .work-introduction.reveal-ready h2 .work-line:first-child .work-word:nth-child(2) {transition-delay:.1s}
+ .work-introduction.reveal-ready h2 .work-line:first-child .work-word:nth-child(3) {transition-delay:.2s}
+ .work-introduction.reveal-ready h2 .work-line:last-child .work-word:first-child {transition-delay:.3s}
+ .work-introduction.reveal-ready h2 .work-line:last-child .work-word:nth-child(2) {transition-delay:.4s}
+ .work-introduction.reveal-ready .work-deck {transition-delay:.6s}
+ .work-introduction.reveal-ready.is-visible .work-deck.deck-ready {opacity:0;transform:translateY(18px)}
+ .work-introduction.reveal-ready .work-deck.deck-ready {transition:opacity .9s ease,transform .9s cubic-bezier(.22,.7,.2,1)}
+ .work-introduction.reveal-ready.is-visible .work-deck.deck-ready.deck-visible {opacity:1;transform:none}
+}

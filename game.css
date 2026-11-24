@@ -8,5 +8,18 @@
 .proposal-nav{scrollbar-width:thin;scrollbar-color:#4c3a40 #111112}
 @media(min-width:651px){.proposal-nav nav{gap:10px}.proposal-nav>p{margin-bottom:0}}
 
+/* Legible table colors for the light portfolio palette. */
+.game-page .controls-table thead {background:#e9dcd3}
+.game-page .controls-table th,.game-page .controls-table td {border-color:#c6b7ae}
+.game-page .controls-table thead th {color:#292422;font-weight:700}
+.game-page .controls-table tbody th {color:#864033;font-weight:600}
+.game-page .controls-table tbody td {color:#403934}
+
+/* Story elements reveal individually instead of hiding entire long sections. */
+.game-reveal {opacity:0;transform:translateY(20px);transition:opacity .75s ease,transform .75s cubic-bezier(.22,.7,.2,1)}
+.game-reveal.is-visible,.game-reveal:focus-within {opacity:1;transform:none}
+.controls-table :is(thead,tr).game-reveal {transform:none;transition:opacity .65s ease}
+@media(prefers-reduced-motion:reduce) {.game-reveal {opacity:1;transform:none;transition:none}}
+
 /* A direct path to the playable work in progress. */
 .proposal-play{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:48px;margin-top:8px;padding:0 20px;background:#b84456;border:1px solid #b84456;border-radius:4px;color:#fff7f4;font-size:13px;font-weight:600;letter-spacing:.02em;transition:background .2s,border-color .2s}.proposal-play:hover,.proposal-play:focus-visible{background:#933748;border-color:#e1a0ac}.proposal-play span{font-size:16px}@media(max-width:650px){.proposal-play{margin-top:4px}}@media(prefers-reduced-motion:reduce){.proposal-play{transition:none}}
