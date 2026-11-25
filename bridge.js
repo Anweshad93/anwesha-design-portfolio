@@ -79,18 +79,37 @@
   function chime(index) {
     if (!soundEnabled || audio?.state !== 'running' || audio.currentTime - lastNote < .07) return;
     lastNote = audio.currentTime;
+    // Four instrument-inspired synthesized voices in contiguous curtain zones.
+    // These are sketches, not recordings of the instruments.
     const notes = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21];
     const pitch = notes[Math.floor(index / ropes.length * notes.length)];
+    const voices = [
+      {partials:[1,.52,.36,.3,.21,.17,.13,.1,.075,.055], attack:.006, decay:1.15, peak:.045, low:1000, high:5200, bend:1.012}, // sitar
+      {partials:[1,.35,.18,.22,.1,.08,.05,.03,.02,.01], attack:.008, decay:1.0, peak:.050, low:850, high:3300, bend:1.025}, // sarod
+      {partials:[1,.65,.4,.18,.15,.09,.06,.04,.03,.02], attack:.003, decay:1.35, peak:.038, low:1600, high:6200, bend:1}, // santoor
+      {partials:[1,.42,.25,.14,.11,.06,.04,.03,.02,.01], attack:.009, decay:1.3, peak:.047, low:800, high:3200, bend:1.018} // veena
+    ];
+    const voice = voices[Math.min(voices.length - 1, Math.floor(index / ropes.length * voices.length))];
     const tone = audio.createOscillator();
+    const filter = audio.createBiquadFilter();
     const gain = audio.createGain();
-    tone.frequency.value = 261.63 * 2 ** (pitch / 12);
+    const frequency = (voice.base || 196) * 2 ** (pitch / 12);
+    const real = new Float32Array(11);
+    const imaginary = new Float32Array([0, ...voice.partials]);
+    tone.setPeriodicWave(audio.createPeriodicWave(real, imaginary));
+    tone.frequency.setValueAtTime(frequency * voice.bend, lastNote);
+    tone.frequency.exponentialRampToValueAtTime(frequency, lastNote + .14);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(voice.high, lastNote);
+    filter.frequency.exponentialRampToValueAtTime(voice.low, lastNote + voice.decay);
     gain.gain.setValueAtTime(.0001, lastNote);
-    gain.gain.exponentialRampToValueAtTime(.075, lastNote + .012);
-    gain.gain.exponentialRampToValueAtTime(.0001, lastNote + .8);
-    tone.connect(gain).connect(audio.destination);
+    gain.gain.exponentialRampToValueAtTime(voice.peak, lastNote + voice.attack);
+    gain.gain.exponentialRampToValueAtTime(voice.peak * .26, lastNote + Math.max(.18, voice.attack + .05));
+    gain.gain.exponentialRampToValueAtTime(.0001, lastNote + voice.decay);
+    tone.connect(filter).connect(gain).connect(audio.destination);
     tone.start(lastNote);
-    tone.stop(lastNote + .82);
-    tone.onended = () => { tone.disconnect(); gain.disconnect(); };
+    tone.stop(lastNote + voice.decay + .02);
+    tone.onended = () => { tone.disconnect(); filter.disconnect(); gain.disconnect(); };
   }
   function resize() {
     lastPointer = null;
