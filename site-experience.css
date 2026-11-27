@@ -1,4 +1,6 @@
 /* Shared portfolio palette */
+.ui-icon {display:inline-block !important;width:1em;height:1em;vertical-align:-.12em;flex:none}
+header .logo i .ui-icon {display:block !important;vertical-align:baseline}
 body {--bg:#f7f3ef;--text:#292422;--line:#d6c9c0;--muted:#685b55;background:var(--bg);color:var(--text)}
 body:not(.game-page) > header nav a,body:not(.game-page) > header nav button,
 .game-page > header nav a,.game-page > header nav button {color:#685b55}
