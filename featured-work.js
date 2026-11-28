@@ -2,7 +2,7 @@
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const elements = document.querySelectorAll(
-    '.work-introduction, .featured-card, .contact-heading, .contact-invitation, .album-reveal, .studio-introduction, .studio-video, .proposal-cover, .next-work'
+    '.work-introduction, .featured-card, .contact-heading, .contact-invitation, .album-reveal, .studio-introduction, .studio-video, .next-work'
   );
 
   const observer = new IntersectionObserver(entries => {

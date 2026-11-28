@@ -2,7 +2,7 @@
 
 ## Sanctuary of Reflections soundtrack
 
-Music: “The Dervish’s Surrender” by Emand_Edroff (Giovanni Rapiti), [source](https://pixabay.com/music/ambient-the-dervishx27s-surrender-530156/), [Pixabay Content License](https://pixabay.com/service/license-summary/). The game plays a 45-second opening excerpt from `puzzle-five-sanctuary/assets/quiet-reflection-opening.mp3`, with a playback crossfade. Downloaded from Pixabay on 20 November 2026. The source lists the track as AI-generated and describes it as Middle Eastern ambient music with ney and saz and no drums.
+Music: “The Dervish’s Surrender” by Emand_Edroff (Giovanni Rapiti), [source](https://pixabay.com/music/ambient-the-dervishx27s-surrender-530156/), [Pixabay Content License](https://pixabay.com/service/license-summary/). Local source: `puzzle-five-sanctuary/assets/quiet-reflection.mp3`; the game plays a 45-second opening excerpt from `puzzle-five-sanctuary/assets/quiet-reflection-opening.mp3`, with a playback crossfade. Downloaded from Pixabay on 20 November 2026. The source lists the track as AI-generated and describes it as Middle Eastern ambient music with ney and saz and no drums.
 
 ## Sanctuary of Reflections inhabitants
 
@@ -49,3 +49,9 @@ Music: “Mystery Bazaar” by Kevin MacLeod (incompetech.com), [source](https:/
 Music: “Ibn Al-Noor” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100706), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `puzzle-four-doorway/assets/ibn-al-noor.mp3`. The original file is unedited; the game loops its first 60 seconds with fades and reduced volume.
 
 Music: “Hidden Wonders” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700006), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `puzzle-four-doorway/assets/hidden-wonders.mp3`. The original file is unedited; the game plays it at reduced volume and fades between tracks.
+
+## Hall of False Dawn soundtrack
+
+Opening music: “Ibn Al-Noor” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100706), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `puzzle-four-doorway/assets/ibn-al-noor.mp3`. The game loops the first 60 seconds, with playback fades; the recording file is unedited.
+
+Reflected-world music: “Hidden Wonders” by Kevin MacLeod (incompetech.com), [source](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700006), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Local file: `puzzle-four-doorway/assets/hidden-wonders.mp3`. The original recording is unedited; playback fades during transitions.

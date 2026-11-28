@@ -1,0 +1,54 @@
+/* Final project and selected process, paired with the original proposal. */
+.game-page .project-kicker,.game-page .proposal-divider span {display:block;color:#a14839;font-size:10px;font-weight:700;letter-spacing:.16em;margin-bottom:18px}
+.game-page .project-final h2,.game-page .project-process h2,.game-page .project-reflection h2 {margin-bottom:22px}
+.game-page .project-final .project-lead {font-size:clamp(19px,2vw,24px);line-height:1.55;color:#292422;max-width:38em}
+.game-page .project-action {display:inline-flex;gap:26px;align-items:center;margin:8px 0 30px;padding:14px 18px;border:1px solid #a14839;border-radius:3px;text-decoration:none;font-size:13px;font-weight:600}
+.game-page .project-action:hover {background:#a14839;color:#fff}
+.chapter-strip {display:grid;grid-template-columns:repeat(5,1fr);gap:12px;border-top:1px solid #d6c9c0;padding-top:18px}
+.chapter-strip span {color:#a14839;font-size:10px;letter-spacing:.08em}.chapter-strip strong {display:block;color:#514640;font-size:12px;font-weight:500;letter-spacing:0;line-height:1.45;margin-top:7px}
+.process-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 22px;margin-top:32px}.process-grid figure {margin:0}.process-grid figure>a {display:block;overflow:hidden;border-radius:5px;background:#e9ddd3}.process-grid img {display:block;width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .35s ease}.process-grid figure>a:hover img {transform:scale(1.025)}.process-grid figcaption {color:#65564e;font-size:13px;line-height:1.65;margin-top:13px}.process-grid figcaption span {display:block;color:#a14839;font-size:10px;font-weight:700;letter-spacing:.12em}.process-grid figcaption strong {display:block;color:#292422;font-size:17px;font-weight:500;line-height:1.35;margin:7px 0}
+.proposal-divider {padding:5px 0 35px;margin:0 0 44px;border-bottom:1px solid #d6c9c0}.game-page .proposal-divider p {color:#65564e;font-size:14px;line-height:1.6;margin:0}
+@media(max-width:650px){.chapter-strip {grid-template-columns:repeat(2,1fr);gap:18px}.process-grid {grid-template-columns:1fr;gap:28px}.process-grid img {aspect-ratio:16/10}.proposal-divider {margin-bottom:32px}}
+@media(prefers-reduced-motion:reduce){.process-grid img {transition:none}}
+.gameplay-gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:32px}.gameplay-gallery figure {margin:0}.gameplay-gallery a {display:block;overflow:hidden;border-radius:5px;background:#e9ddd3}.gameplay-gallery img {display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.gameplay-gallery figcaption {margin-top:11px;color:#a14839;font-size:10px;font-weight:700;letter-spacing:.12em}.gameplay-gallery figcaption span {display:block;margin-top:6px;color:#65564e;font-size:13px;font-weight:400;letter-spacing:0;line-height:1.5}.game-page .gallery-note {font-size:12px;color:#776861;margin:14px 0 0}
+@media(max-width:650px){.gameplay-gallery {grid-template-columns:1fr;gap:24px}}
+/* Chapter images and names stay together as the slideshow advances. */
+.chapter-strip {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.chapter-choice {background:transparent;border:0;border-top:2px solid transparent;text-align:left;padding:12px 4px;cursor:pointer;min-width:0;transition:border-color .25s,color .25s}
+.chapter-choice span {display:block;color:#a14839;font-size:10px;letter-spacing:.08em}
+.chapter-choice strong {display:block;color:#766b65;font-size:12px;font-weight:500;line-height:1.45;margin-top:7px}
+.chapter-choice.is-active {border-top-color:#a14839}
+.chapter-choice.is-active strong {color:#9b4033;font-weight:700}
+.chapter-viewport {display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;padding:0 0 8px;margin:18px 0 0;max-width:636px;box-sizing:border-box}
+.chapter-slide {flex:0 0 calc((100% - 16px)/2);width:calc((100% - 16px)/2);min-width:0;scroll-snap-align:start;margin:0}
+.chapter-slide a {display:block;background:#e9ddd3;border-radius:20px;overflow:hidden}
+.chapter-slide img {display:block;width:100%;height:clamp(180px,20vw,235px);object-fit:cover;object-position:center}
+.chapter-slide figcaption {padding:14px 2px 4px;color:#a14839;font-size:11px;font-weight:700;letter-spacing:.1em}
+.chapter-slide figcaption span {display:block;color:#65564e;font-size:13px;font-weight:400;letter-spacing:0;line-height:1.5;margin-top:6px}
+.chapter-controls {display:flex;align-items:center;justify-content:space-between;gap:15px;margin:10px auto 0}
+.game-page .chapter-controls .chapter-hint {font-size:12px;color:#776861;margin:0}
+.chapter-toggle {background:transparent;border:0;border-bottom:1px solid #b68c80;color:#873d31;font-size:12px;padding:8px 0}
+@media(max-width:650px){.chapter-strip {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px}.chapter-viewport {gap:12px}.chapter-slide {flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}.chapter-slide img {height:clamp(170px,45vw,210px)}.chapter-controls {align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.chapter-choice {transition:none}.chapter-viewport {scroll-behavior:auto}}
+
+.chapter-viewport::-webkit-scrollbar {display:none}
+
+/* The centered chapter stays clear while its neighbors recede gently. */
+.has-card-focus .chapter-slide img {filter:blur(2px);opacity:.7;transition:filter .4s ease,opacity .4s ease}
+.has-card-focus .chapter-slide figcaption {opacity:.62;transition:opacity .4s ease}
+.has-card-focus .chapter-slide.is-focused img {filter:blur(0);opacity:1}
+.has-card-focus .chapter-slide.is-focused figcaption {opacity:1}
+@media (prefers-reduced-motion:reduce) {
+  .has-card-focus .chapter-slide img,.has-card-focus .chapter-slide figcaption {transition:none}
+}
+
+@media(max-width:520px){.chapter-slide {flex-basis:100%;width:100%}}
+/* Keep the track full width and show a whole number of cards at every size. */
+.chapter-viewport {width:100%;max-width:none;gap:16px}
+.chapter-slide {flex-basis:calc((100% - 32px)/3);width:calc((100% - 32px)/3)}
+.chapter-slide img {height:auto;aspect-ratio:16/10}
+@media(max-width:800px){
+  .chapter-viewport {gap:12px}
+  .chapter-slide {flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}
+}
+@media(max-width:520px){.chapter-slide {flex-basis:100%;width:100%}}
