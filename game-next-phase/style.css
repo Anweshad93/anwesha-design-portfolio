@@ -367,6 +367,24 @@ button {
   transition: opacity 400ms ease, visibility 400ms ease, transform 400ms ease;
 }
 
+/* Soften the whole courtyard behind the first memory, as in later chapters. */
+#game::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: rgba(20, 20, 30, .18);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+#game:has(#ending:not(.is-hidden))::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  #game::before { transition: none; }
+}
+
 .intro-panel::before,
 .ending-panel::before {
   content: "";
@@ -617,6 +635,15 @@ button {
   background: rgba(57, 41, 52, .88);
   font: 650 .73rem/1.2 system-ui, sans-serif;
   cursor: pointer;
+}
+
+/* Actions arrive as the traveller reaches each new part of the courtyard. */
+.travel-controls button:not([hidden]) {
+  animation: courtyard-action-appear 320ms ease-out;
+}
+@keyframes courtyard-action-appear { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .travel-controls button:not([hidden]) { animation: none; }
 }
 
 .travel-controls button:hover,

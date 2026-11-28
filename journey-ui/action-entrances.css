@@ -1,0 +1,23 @@
+/* Let newly available puzzle actions arrive gently without delaying input. */
+#game .controls > button:not([hidden]) {
+  animation: journey-action-entrance 360ms ease-out;
+}
+
+/* These panels introduce their own action buttons together. */
+#game :is(#arch-panel, #reflection-puzzle):not([hidden]) {
+  animation: journey-panel-entrance 360ms ease-out;
+}
+
+@keyframes journey-action-entrance {
+  from { opacity: 0; transform: translateY(5px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes journey-panel-entrance {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #game .controls > button:not([hidden]),
+  #game :is(#arch-panel, #reflection-puzzle):not([hidden]) { animation: none; }
+}

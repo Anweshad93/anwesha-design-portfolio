@@ -20,3 +20,8 @@
 @keyframes garden-ending-card{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){#ending:not(.hidden),#ending:not(.hidden) .card{animation:none}}
 .continue-link{display:inline-block;font:650 .76rem system-ui,sans-serif;text-decoration:none}.continue-link:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* Fade each newly available garden action in without delaying its use. */
+.controls button:not([hidden]){animation:garden-action-appear 320ms ease-out}
+@keyframes garden-action-appear{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.controls button:not([hidden]){animation:none}}
