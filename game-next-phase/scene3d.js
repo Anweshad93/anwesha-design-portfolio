@@ -5,7 +5,7 @@ import { createFortressWorld } from "./fortress-world.js?v=foot-support-2";
 import { createTraveler } from "./traveler3d.js?v=footsteps-2";
 import { createSoundEffects } from "./sound-effects.js?v=level-3";
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import { mountJournal } from "../journey-journal/journal.js?v=journey-five-20261120";
+import { mountJournal } from "../journey-journal/journal.js?v=garden-art-20261127";
 
 const journal = mountJournal({chapter:1});
 const chapterProgress = createChapterProgress(1);

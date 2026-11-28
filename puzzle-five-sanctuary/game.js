@@ -13,7 +13,7 @@ import {watchFinalJournal} from './ending-choices.js?v=2';
 import {createSanctuaryFootsteps} from './footsteps.js?v=1';
 import {dismissOpening} from '../journey-ui/opening-transition.js?v=1';
 import {createChapterProgress} from '../journey-ui/chapter-progress.js?v=2';
-import {mountJournal} from '../journey-journal/journal.js?v=journey-five-20261120';
+import {mountJournal} from '../journey-journal/journal.js?v=garden-art-20261127';
 import {revealChapterReward} from '../journey-transition.js?v=journey-five-20261120';
 const $=s=>document.querySelector(s), journal=mountJournal({chapter:5}),progress=createChapterProgress(5);
 const scene=new THREE.Scene();scene.background=new THREE.Color('#52767b');scene.fog=new THREE.Fog('#52767b',24,56);

@@ -13,7 +13,7 @@ import {createHallMusic} from './music.js?v=balanced-20261120';
 import {createFlipSound} from './flip-sound.js?v=1';
 import {createLampSound} from './lamp-sound.js?v=1';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import {mountJournal} from '../journey-journal/journal.js?v=journey-five-20261120';
+import {mountJournal} from '../journey-journal/journal.js?v=garden-art-20261127';
 
 const journal=mountJournal({chapter:4});
 const chapterProgress = createChapterProgress(4);

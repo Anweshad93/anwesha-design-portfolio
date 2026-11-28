@@ -11,7 +11,7 @@ import {createGuide} from '../puzzle-two-garden/guide.js?v=visible-1';
 import {createGuideBubble} from './guide-bubble.js?v=water-clue-1';
 import {createMemoryMural} from './memory-mural.js?v=gentle-stones-1';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import {mountJournal} from '../journey-journal/journal.js?v=journey-five-20261120';
+import {mountJournal} from '../journey-journal/journal.js?v=garden-art-20261127';
 
 const journal=mountJournal({chapter:3});
 const chapterProgress = createChapterProgress(3);

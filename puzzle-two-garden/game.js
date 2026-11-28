@@ -12,7 +12,7 @@ import { createGardenMotion } from './motion.js?v=landing-4';
 import { createTwoHandCarry } from './carry.js?v=two-hands-1';
 import { createGardenSounds } from './sounds.js?v=5';
 import { createChapterProgress } from '../journey-ui/chapter-progress.js?v=2';
-import { mountJournal } from '../journey-journal/journal.js?v=journey-five-20261120';
+import { mountJournal } from '../journey-journal/journal.js?v=garden-art-20261127';
 
 const journal=mountJournal({chapter:2});
 const chapterProgress = createChapterProgress(2);
