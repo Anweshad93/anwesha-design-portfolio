@@ -16,18 +16,21 @@
   const highlighted = new Map();
 
   const toggle = document.querySelector('#chimes');
+  const soundHint = toggle.closest('figcaption')?.querySelector('span');
   const Audio = window.AudioContext || window.webkitAudioContext;
   const palette = ['#335f9c', '#a45d16', '#a5304a', '#70419a', '#237660', '#b14e28'];
   let audio, lastNote = -Infinity, lastPointer = null, lastVerticalBrush = 0;
   let soundEnabled = true;
-  let enableRequested = false;
   toggle.hidden = !Audio;
 
   function updateSoundButton() {
-    const waiting = soundEnabled && audio?.state !== 'running';
-    toggle.textContent = waiting ? 'Enable sound' : soundEnabled ? 'Sound on' : 'Sound off';
-    toggle.setAttribute('aria-pressed', String(soundEnabled && !waiting));
-    toggle.setAttribute('aria-label', waiting ? 'Enable curtain sound' : soundEnabled ? 'Turn curtain sound off' : 'Turn curtain sound on');
+    const waiting = !!audio && soundEnabled && audio.state !== 'running';
+    toggle.textContent = soundEnabled ? 'Sound on' : 'Sound off';
+    toggle.setAttribute('aria-pressed', String(soundEnabled));
+    toggle.setAttribute('aria-label', waiting ? 'Sound on. Tap a string to start audio. Turn sound off' : soundEnabled ? 'Turn curtain sound off' : 'Turn curtain sound on');
+    if (soundHint) soundHint.textContent = waiting
+      ? 'Tap a string to start sound, then brush or pull.'
+      : 'Brush the curtain or pull a letter.';
   }
 
   function activateSound() {
@@ -36,18 +39,7 @@
     else updateSoundButton();
   }
 
-  toggle.addEventListener('pointerdown', () => {
-    enableRequested = soundEnabled && audio?.state !== 'running';
-  });
-  toggle.addEventListener('keydown', () => {
-    enableRequested = soundEnabled && audio?.state !== 'running';
-  });
   toggle.addEventListener('click', () => {
-    if (enableRequested || (soundEnabled && audio?.state !== 'running')) {
-      enableRequested = false;
-      activateSound();
-      return;
-    }
     soundEnabled = !soundEnabled;
     if (soundEnabled) {
       activateSound();
@@ -380,7 +372,11 @@
     if(event.key.startsWith('Arrow')) selected=(selected+ropes.length+(event.key==='ArrowLeft'?-1:1))%ropes.length;
     else {
       highlight(ropes[selected]);
-      chime(selected);
+      if (soundEnabled && audio?.state === 'running') chime(selected);
+      else if (soundEnabled && audio && audio.state !== 'closed') {
+        const noteIndex = selected;
+        audio.resume().then(() => chime(noteIndex)).catch(() => {});
+      }
       if (reduced.matches) return;
       const rope=ropes[selected];
       rope.forEach((p,i)=>{p.x+=i*step*.42; p.px=p.x;});
