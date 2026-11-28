@@ -21,15 +21,16 @@
   const palette = ['#335f9c', '#a45d16', '#a5304a', '#70419a', '#237660', '#b14e28'];
   let audio, lastNote = -Infinity, lastPointer = null, lastVerticalBrush = 0;
   let soundEnabled = true;
+  let enablingOnPress = false;
   toggle.hidden = !Audio;
 
   function updateSoundButton() {
     const waiting = !!audio && soundEnabled && audio.state !== 'running';
-    toggle.textContent = soundEnabled ? 'Sound on' : 'Sound off';
-    toggle.setAttribute('aria-pressed', String(soundEnabled));
-    toggle.setAttribute('aria-label', waiting ? 'Sound on. Tap a string to start audio. Turn sound off' : soundEnabled ? 'Turn curtain sound off' : 'Turn curtain sound on');
+    toggle.textContent = waiting ? 'Enable sound' : soundEnabled ? 'Sound on' : 'Sound off';
+    toggle.setAttribute('aria-pressed', String(soundEnabled && !waiting));
+    toggle.setAttribute('aria-label', waiting ? 'Enable curtain sound' : soundEnabled ? 'Turn curtain sound off' : 'Turn curtain sound on');
     if (soundHint) soundHint.textContent = waiting
-      ? 'Tap a string to start sound, then brush or pull.'
+      ? 'Tap a string or enable sound, then brush or pull.'
       : 'Brush the curtain or pull a letter.';
   }
 
@@ -39,7 +40,22 @@
     else updateSoundButton();
   }
 
+  toggle.addEventListener('pointerdown', () => {
+    enablingOnPress = !!audio && soundEnabled && audio.state !== 'running';
+  });
+  toggle.addEventListener('pointercancel', () => { enablingOnPress = false; });
+  toggle.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      enablingOnPress = !!audio && soundEnabled && audio.state !== 'running';
+    }
+  });
   toggle.addEventListener('click', () => {
+    if (enablingOnPress || (soundEnabled && audio?.state !== 'running')) {
+      enablingOnPress = false;
+      activateSound();
+      return;
+    }
+    enablingOnPress = false;
     soundEnabled = !soundEnabled;
     if (soundEnabled) {
       activateSound();
